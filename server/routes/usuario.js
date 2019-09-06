@@ -16,10 +16,13 @@ app.use(bodyParser.json())
 
 app.post('/user', (req, res) => {
     let data = new User(
-        req.body.id_usuario,
-        req.body.nombre,
+        req.body.idusuario,
         req.body.email,
-        bcrypt.hashSync(req.body.pass, 10)
+        req.body.pass,
+        req.body.rol,
+        bcrypt.hashSync(req.body.pass, 10),
+        req.body.id_datos_comuni,
+        req.body.id_datos_personales
     );
     conn.query('INSERT INTO usuarios SET ?', data, (err, result) => {
         if(err) {
