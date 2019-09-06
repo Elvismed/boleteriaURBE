@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require("morgan");
 require('./config/config');
+
 //middlewares
 app.use(morgan("dev"));
 app.use(express.json());
