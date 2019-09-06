@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const _ = require('underscore');
+
 const conn = require('../config/db');
 const User = require('../models/user.model');
 
@@ -31,6 +33,56 @@ app.post('/user', (req, res) => {
             ok: true,
             result,
             message: 'Se ha agregado exitosamente'
+        });
+    });
+});
+
+app.put('/user/:id', (req, res) => {
+    let id = req.params.id;
+    let data = _.pick(req.body, ['nombre', 'email']);
+
+    conn.query("UPDATE usuarios SET ? where id_usuario = ?", [data, id],(err, result) =>{
+        if(err) {
+            res.status(400).json({
+                err
+            });
+        }
+
+        res.json({
+            result,
+            message: 'Se ha modificado exitosamente'
+        });
+    });
+});
+
+app.get('/user', (req, res) => {
+
+    conn.query("SELECT * FROM usuarios",(err, result) =>{
+        if(err) {
+            res.status(400).json({
+                err
+            });
+        }
+
+        res.json({
+            result
+        });
+    });
+});
+
+app.delete('/user/:id', (req, res) => {
+    let id = req.params.id;
+
+    conn.query("DELETE FROM usuarios where id_usuario = ?", id,(err, result) =>{
+        if(err) {
+            res.status(400).json({
+                err
+            });
+        }
+
+        res.json({
+            result,
+            message: 'Se ha eliminado exitosamente'
         });
     });
 });
