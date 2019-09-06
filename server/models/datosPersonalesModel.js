@@ -1,4 +1,4 @@
-module.exports = class DatosPeronales {
+module.exports = class DatosPersonales {
     constructor(
         id_datos_personales,
         nombre,
