@@ -4,6 +4,7 @@ const app = express();
 app.use(require('../routes/authentication'));
 app.use(require('../routes/usuario'));
 app.use(require('../routes/datosPersonales'));
+app.use(require('../routes/datosComunicacion'));
 
 
 module.exports = app;

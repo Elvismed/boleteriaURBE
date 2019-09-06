@@ -18,9 +18,8 @@ app.post('/user', (req, res) => {
     let data = new User(
         req.body.idusuario,
         req.body.email,
-        req.body.pass,
-        req.body.rol,
         bcrypt.hashSync(req.body.pass, 10),
+        req.body.rol,
         req.body.id_datos_comuni,
         req.body.id_datos_personales
     );
