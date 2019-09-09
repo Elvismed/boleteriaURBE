@@ -31,7 +31,7 @@ USE `boleteria`;
 --
 
 CREATE TABLE `areas` (
-  `id_area` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL ,
   `nombre` varchar(40) NOT NULL,
   `capacidad` int(11) NOT NULL,
   `id_zonas` int(11) NOT NULL
@@ -52,44 +52,7 @@ CREATE TABLE `butaca` (
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `datos_comunicacion`
---
 
-CREATE TABLE `datos_comunicacion` (
-  `id_datos_comuni` int(11) NOT NULL,
-  `telefono` int(11) NOT NULL,
-  `ciudad` varchar(45) NOT NULL,
-  `municipio` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `datos_comunicacion`
---
-
-INSERT INTO `datos_comunicacion` (`id_datos_comuni`, `telefono`, `ciudad`, `municipio`) VALUES
-(1, 12345, 'maracaibo', 'maracaibo');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `datos_personales`
---
-
-CREATE TABLE `datos_personales` (
-  `id_datos_personales` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `apellido` varchar(45) NOT NULL,
-  `sexo` varchar(20) NOT NULL,
-  `edad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `datos_personales`
---
-
-INSERT INTO `datos_personales` (`id_datos_personales`, `nombre`, `apellido`, `sexo`, `edad`) VALUES
-(1, 'jose', 'perozo', 'masculino', 22);
 
 -- --------------------------------------------------------
 
@@ -173,20 +136,25 @@ CREATE TABLE `tipo_evento` (
 --
 
 CREATE TABLE `usuarios` (
-  `idusuario` int(11) NOT NULL,
+  `idusuario` int(11) NOT NULL ,
   `email` varchar(50) NOT NULL,
   `pass` varchar(45) NOT NULL,
   `rol` tinyint(1) NOT NULL,
-  `id_datos_comuni` int(11) NOT NULL,
-  `id_datos_personales` int(11) NOT NULL
+  `nombre` varchar(45) NOT NULL,
+  `apellido` varchar(45) NOT NULL,
+  `sexo` varchar(20) NOT NULL,
+  `edad` int(11) NOT NULL,
+  `telefono` varchar(14) NOT NULL,
+  `ciudad` varchar(45) NOT NULL,
+  `municipio` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idusuario`, `email`, `pass`, `rol`, `id_datos_comuni`, `id_datos_personales`) VALUES
-(2, 'perozo64@gmail.com', '$2a$10$geQ.9qdLWUbejpkn8SceRepdoYw4SiBNM48BTD', 0, 1, 1);
+INSERT INTO `usuarios` (`idusuario`, `email`, `pass`, `rol`) VALUES
+(2, 'perozo64@gmail.com', '$2a$10$geQ.9qdLWUbejpkn8SceRepdoYw4SiBNM48BTD', 0,'Jose','Perozo','Masculino','20','04129651492','Maracaibo','Mara');
 
 -- --------------------------------------------------------
 
@@ -220,17 +188,7 @@ ALTER TABLE `butaca`
   ADD KEY `id_area` (`id_area`),
   ADD KEY `id_reserva` (`id_reserva`);
 
---
--- Indices de la tabla `datos_comunicacion`
---
-ALTER TABLE `datos_comunicacion`
-  ADD PRIMARY KEY (`id_datos_comuni`);
 
---
--- Indices de la tabla `datos_personales`
---
-ALTER TABLE `datos_personales`
-  ADD PRIMARY KEY (`id_datos_personales`);
 
 --
 -- Indices de la tabla `estado`
@@ -279,9 +237,7 @@ ALTER TABLE `tipo_evento`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`idusuario`),
-  ADD KEY `id_datos_comuni` (`id_datos_comuni`),
-  ADD KEY `id_datos_personales` (`id_datos_personales`);
+  ADD PRIMARY KEY (`idusuario`)
 
 --
 -- Indices de la tabla `zonas`
@@ -306,17 +262,6 @@ ALTER TABLE `areas`
 ALTER TABLE `butaca`
   MODIFY `idbutaca` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT de la tabla `datos_comunicacion`
---
-ALTER TABLE `datos_comunicacion`
-  MODIFY `id_datos_comuni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `datos_personales`
---
-ALTER TABLE `datos_personales`
-  MODIFY `id_datos_personales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
@@ -409,14 +354,7 @@ ALTER TABLE `lugar_evento`
 ALTER TABLE `reservas`
   ADD CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservas_ibfk_2` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `id_datos_comuni` FOREIGN KEY (`id_datos_comuni`) REFERENCES `datos_comunicacion` (`id_datos_comuni`),
-  ADD CONSTRAINT `id_datos_personales` FOREIGN KEY (`id_datos_personales`) REFERENCES `datos_personales` (`id_datos_personales`);
-
+---
 --
 -- Filtros para la tabla `zonas`
 --

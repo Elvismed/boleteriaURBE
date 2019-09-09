@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const _ = require('underscore');
-
 const conn = require('../config/db');
-const DatosComunicacion = require('../models/datosComunicacionModel.js');
+const _ = require('underscore');
+const Reserva = require('../models/reservas.model');
 
 const app = express();
 
@@ -14,14 +13,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.post('/datosComunicacion', (req, res) => {
-    let data = new DatosComunicacion (
-        req.body.id_datos_comuni,
-        req.body.telefono,
-        req.body.ciudad,
-        req.body.municipio
+app.post('/reserva', (req, res) => {
+    let data = new Reserva(
+        req.body.id_reserva,
+        req.body.fecha_reserva,
+        req.body.fecha_limite,
+        req.body.id_usuario,
+        req.body.id_estado
     );
-    conn.query('INSERT INTO datos_comunicacion SET ?', data, (err, result) => {
+    conn.query('INSERT INTO reservas SET ?', data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,
@@ -36,5 +36,4 @@ app.post('/datosComunicacion', (req, res) => {
         });
     });
 });
-
 module.exports = app;

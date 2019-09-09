@@ -4,14 +4,24 @@ module.exports = class User {
         email,
         pass,
         rol,
-        id_datos_comuni,
-        id_datos_personales
+        nombre,
+        apellido,
+        sexo,
+        edad,
+        telefono,
+        ciudad,
+        municipio,
     ) {
         this.idusuario = idusuario;
         this.email = email;
         this.pass = pass;
-        this.rol = rol;
-        this.id_datos_comuni = id_datos_comuni;
-        this.id_datos_personales = id_datos_personales;
+        this,rol = rol;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.sexo = sexo;
+        this.edad = edad;
+        this.telefono = telefono;
+        this.ciudad = ciudad;
+        this.municipio = municipio;
     }
 };

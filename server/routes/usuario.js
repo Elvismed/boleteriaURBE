@@ -1,9 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const _ = require('underscore');
-
 const conn = require('../config/db');
+const _ = require('underscore');
 const User = require('../models/user.model');
 
 const app = express();
@@ -14,14 +13,35 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+app.get('/',(req , res)=>{
+    conn.query('SELECT * FROM usuarios ',(err, result)=>{
+        if(err){
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok:true,
+            result,
+         
+        })
+    });
+})
+
 app.post('/user', (req, res) => {
     let data = new User(
         req.body.idusuario,
         req.body.email,
         bcrypt.hashSync(req.body.pass, 10),
         req.body.rol,
-        req.body.id_datos_comuni,
-        req.body.id_datos_personales
+        req.body.nombre,
+        req.body.apellido,
+        req.body.sexo,
+        req.body.telefono,
+        req.body.edad,
+        req.body.ciudad,
+        req.body.municipio,
     );
     conn.query('INSERT INTO usuarios SET ?', data, (err, result) => {
         if(err) {
@@ -39,54 +59,58 @@ app.post('/user', (req, res) => {
     });
 });
 
-app.put('/user/:id', (req, res) => {
-    let id = req.params.id;
-    let data = _.pick(req.body, ['nombre', 'email']);
 
-    conn.query("UPDATE usuarios SET ? where id_usuario = ?", [data, id],(err, result) =>{
-        if(err) {
+app.get('/user/:id',(req, res) =>{
+        let id_usuario = req.params.id
+    conn.query('SELECT * FROM usuarios WHERE ?',id_usuario,(err, result)=>{
+        if(err){
             res.status(400).json({
+                ok: false,
                 err
             });
         }
-
         res.json({
+            ok:true,
             result,
-            message: 'Se ha modificado exitosamente'
-        });
+            message: `el usuario `
+        })
     });
 });
 
-app.get('/user', (req, res) => {
-
-    conn.query("SELECT * FROM usuarios",(err, result) =>{
-        if(err) {
-            res.status(400).json({
-                err
-            });
-        }
-
-        res.json({
-            result
+app.put('/user/:id',(req, res) =>{
+    let idusuario = req.params.id
+    let data = _.pick(req.body,['email','nombre','apellido','telefono']);
+ 
+conn.query('UPDATE usuarios SET ? where idusuario = ?', [data ,idusuario],(err, result)=>{
+    if(err){
+        res.status(400).json({
+            ok: false,
+            err
         });
-    });
-});
+    }
+    res.json({
+        ok:true,
+        result,
+        message: `Usuario  fue cambiado`
+    })
+})
+})
 
-app.delete('/user/:id', (req, res) => {
-    let id = req.params.id;
-
-    conn.query("DELETE FROM usuarios where id_usuario = ?", id,(err, result) =>{
-        if(err) {
-            res.status(400).json({
-                err
-            });
-        }
-
-        res.json({
-            result,
-            message: 'Se ha eliminado exitosamente'
+app.delete('/user/:id',(req, res)=>{
+    let idusuario = req.params.id
+conn.query('DELETE FROM usuarios WHERE idusuario = ?',idusuario,(err, result)=>{
+    if(err){
+        res.status(400).json({
+            ok: false,
+            err
         });
-    });
-});
-
+    }
+    res.json({
+        ok:true,
+        result,
+        message: `El usuario fue eliminado`
+    })
+})
+    
+})
 module.exports = app;

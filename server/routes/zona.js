@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const _ = require('underscore');
-
 const conn = require('../config/db');
-const DatosPersonales = require('../models/datosPersonalesModel.js');
+const _ = require('underscore');
+const Zona = require('../models/zona.model');
 
 const app = express();
 
@@ -14,15 +13,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.post('/datosPersonales', (req, res) => {
-    let data = new DatosPersonales(
-        req.body.id_datos_personales,
+app.post('/zona', (req, res) => {
+    let data = new Zona(
+        req.body.id_zona,
         req.body.nombre,
-        req.body.apellido,
-        req.body.sexo,
-        req.body.edad
+        req.body.precio,
+        req.body.idlugar
     );
-    conn.query('INSERT INTO datos_personales SET ?', data, (err, result) => {
+    conn.query('INSERT INTO zonas SET ?', data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,
@@ -37,5 +35,4 @@ app.post('/datosPersonales', (req, res) => {
         });
     });
 });
-
 module.exports = app;

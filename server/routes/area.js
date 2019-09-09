@@ -1,0 +1,38 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
+const conn = require('../config/db');
+const _ = require('underscore');
+const Area = require('../models/area.model');
+
+const app = express();
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
+
+app.post('/area', (req, res) => {
+    let data = new Area(
+        req.body.id_area,
+        req.body.nombre,
+        req.body.capacidad,
+        req.body.id_zonas
+    );
+    conn.query('INSERT INTO areas SET ?', data, (err, result) => {
+        if(err) {
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+
+        res.json({
+            ok: true,
+            result,
+            message: 'Se ha agregado exitosamente'
+        });
+    });
+});
+module.exports = app;
