@@ -4,14 +4,33 @@ const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
 const Zona = require('../models/zona.model');
+const {zonaByIdUsuario,
+        postZona} =require("../utils/SQL");
 
 const app = express();
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
  
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
+app.get('/zona/user/:id',(req,res) =>{
+    let id_zona= req.params.id
+    conn.query(zonaByIdUsuario,id_zona,(err,result)=>{
+        if(err){
+            res.status(400).json({
+                ok:false,
+                err
+            });
+        }
+        res.json({
+            ok:true,
+            result,
+            message:" Usuario por zona encontrado"
+        });
+    });
+});
 
 app.post('/zona', (req, res) => {
     let data = new Zona(
@@ -20,7 +39,7 @@ app.post('/zona', (req, res) => {
         req.body.precio,
         req.body.idlugar
     );
-    conn.query('INSERT INTO zonas SET ?', data, (err, result) => {
+    conn.query(postZona, data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,
@@ -35,4 +54,5 @@ app.post('/zona', (req, res) => {
         });
     });
 });
+
 module.exports = app;

@@ -1,6 +1,6 @@
 module.exports = class User {
     constructor(
-        idusuario,
+        idusuarios,
         email,
         pass,
         rol,
@@ -12,7 +12,7 @@ module.exports = class User {
         ciudad,
         municipio,
     ) {
-        this.idusuario = idusuario;
+        this.idusuarios = idusuarios;
         this.email = email;
         this.pass = pass;
         this,rol = rol;

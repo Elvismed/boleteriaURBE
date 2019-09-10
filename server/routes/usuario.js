@@ -4,7 +4,9 @@ const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
 const User = require('../models/user.model');
-const {agregarUsuario} =require('../utils/SQL');
+const {getUsuarios,
+        getUsuarioById,
+        postUsuario} =require('../utils/SQL');
 
 const app = express();
 
@@ -15,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/',(req , res)=>{
-    conn.query('SELECT * FROM usuarios ',(err, result)=>{
+    conn.query(getUsuarios,(err, result)=>{
         if(err){
             res.status(400).json({
                 ok: false,
@@ -32,7 +34,7 @@ app.get('/',(req , res)=>{
 
 app.post('/user', (req, res) => {
     let data = new User(
-        req.body.id_usuario=null,
+        req.body.idusuarios=null,
         req.body.email,
         bcrypt.hashSync(req.body.pass, 10),
         req.body.rol,
@@ -44,7 +46,7 @@ app.post('/user', (req, res) => {
         req.body.ciudad,
         req.body.municipio,
     );
-    conn.query(agregarUsuario, data, (err, result) => {
+    conn.query(postUsuario, data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,
@@ -62,8 +64,8 @@ app.post('/user', (req, res) => {
 
 
 app.get('/user/:id',(req, res) =>{
-        let id_usuario = req.params.id
-    conn.query('SELECT * FROM usuarios WHERE ?',id_usuario,(err, result)=>{
+        let idusuarios = req.params.id
+    conn.query(getUsuarioById,idusuarios,(err, result)=>{
         if(err){
             res.status(400).json({
                 ok: false,
@@ -79,10 +81,10 @@ app.get('/user/:id',(req, res) =>{
 });
 
 app.put('/user/:id',(req, res) =>{
-    let idusuario = req.params.id
+    let idusuarios = req.params.id
     let data = _.pick(req.body,['email','nombre','apellido','telefono']);
  
-conn.query('UPDATE usuarios SET ? where idusuario = ?', [data ,idusuario],(err, result)=>{
+conn.query(updateUsuarioById, [data ,idusuarios],(err, result)=>{
     if(err){
         res.status(400).json({
             ok: false,
@@ -98,8 +100,8 @@ conn.query('UPDATE usuarios SET ? where idusuario = ?', [data ,idusuario],(err, 
 })
 
 app.delete('/user/:id',(req, res)=>{
-    let idusuario = req.params.id
-conn.query('DELETE FROM usuarios WHERE idusuario = ?',idusuario,(err, result)=>{
+    let idusuarios = req.params.id
+conn.query(deleteUsuario,idusuarios,(err, result)=>{
     if(err){
         res.status(400).json({
             ok: false,
