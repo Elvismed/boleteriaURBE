@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
 const User = require('../models/user.model');
+const {agregarUsuario} =require('../utils/SQL');
 
 const app = express();
 
@@ -31,7 +32,7 @@ app.get('/',(req , res)=>{
 
 app.post('/user', (req, res) => {
     let data = new User(
-        req.body.idusuario,
+        req.body.id_usuario=null,
         req.body.email,
         bcrypt.hashSync(req.body.pass, 10),
         req.body.rol,
@@ -43,7 +44,7 @@ app.post('/user', (req, res) => {
         req.body.ciudad,
         req.body.municipio,
     );
-    conn.query('INSERT INTO usuarios SET ?', data, (err, result) => {
+    conn.query(agregarUsuario, data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,
