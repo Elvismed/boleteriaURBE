@@ -2,10 +2,11 @@ const express = require("express");
 const bodyParse= require("body-parser");
 const conn = require("../config/db");
 const Factura = require("../models/factura.model");
-const { getfacturas,
+const { getFacturas,
         postFactura } = require("../utils/SQL");
 
 const app = express();
+
 app.use(bodyParse.json());
 
 app.get("/factura",(req,res)=>{

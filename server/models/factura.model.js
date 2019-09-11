@@ -6,10 +6,10 @@ module.exports= class Factura{
         subtotal,
         total
     ){
-        this.numero_fact=numero_fact;
-        this.fecha=fecha;
-        this.hora=hora;
-        this.subtotal=subtotal;
-        this.total=total;
+        this.numero_fact = numero_fact;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.subtotal = subtotal;
+        this.total = total;
     }
 }

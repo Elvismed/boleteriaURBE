@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
 const Estado = require('../models/estado.model');

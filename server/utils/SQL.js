@@ -45,6 +45,7 @@ module.exports = {
     getFacturas,
     postFactura,
     getButacas,
+    getButacasByIdPerson,
     postButaca,
     postTicket
 }
