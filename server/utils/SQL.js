@@ -6,9 +6,6 @@ const updateUsuarioById ='UPDATE usuarios SET ? where idusuarios = ?';
 const postUsuario = 'INSERT INTO usuarios SET ?';
 const deleteUsuario = 'DELETE FROM usuarios WHERE idusuarios = ?';
 
-//RESERVA
-const postReserva ='INSERT INTO reservas SET ?';
-
 //AREA
 const postArea = 'INSERT INTO areas SET ?';
 
@@ -27,9 +24,12 @@ const getFacturas = 'SELECT * FROM factura';
 const postFactura = 'INSERT INTO factura SET ?';
 
 //BUTACAS
-const postButaca = 'INSERT INTO butaca SET ?'
+const getButacas ='';
+const getButacasByIdPerson='';
+const postButaca = 'INSERT INTO butaca SET ?';
+
 //TICKET
-const postTicket = 'INSERT INTO ticket SET ?'
+const postTicket = 'INSERT INTO ticket SET ?';
 
 module.exports = {
     getUsuarios,
@@ -42,9 +42,9 @@ module.exports = {
     postLugar,
     postEstado,
     postArea,
-    postReserva,
-    getfacturas,
+    getFacturas,
     postFactura,
+    getButacas,
     postButaca,
     postTicket
 }
