@@ -7,6 +7,7 @@ const {
         } = require("../utils/SQL");
 
 const app = express();
+app.use(bodyParse.json());
 
 app.use(bodyParse.json());
 

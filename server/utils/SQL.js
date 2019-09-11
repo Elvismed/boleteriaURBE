@@ -23,8 +23,8 @@ const zonaByIdUsuario='';
 const postZona='INSERT INTO zonas SET ?';
 
 //FACTURAS
-const getfacturas = 'SELECT * FROM factura';
-const postFactura = 'INSERT INTO factura SET ?'
+const getFacturas = 'SELECT * FROM factura';
+const postFactura = 'INSERT INTO factura SET ?';
 
 module.exports = {
     getUsuarios,
@@ -38,6 +38,6 @@ module.exports = {
     postEstado,
     postArea,
     postReserva,
-    getfacturas,
+    getFacturas,
     postFactura
 }
