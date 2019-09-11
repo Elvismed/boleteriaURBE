@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
+const {postButaca} = require("../utils/SQL");
 const Butaca = require('../models/butaca.model');
 
 const app = express();
@@ -14,14 +15,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.post('/butaca', (req, res) => {
-    let data = new Ticket(
+    let data = new  Butaca(
         req.body.idbutacas,
         req.body.ubicacion,
         req.body.cod_butaca,
         req.body.area_idarea,
         req.body.ticket_idticket
     );
-    conn.query('INSERT INTO butaca SET ?', data, (err, result) => {
+    conn.query(postButaca, data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,

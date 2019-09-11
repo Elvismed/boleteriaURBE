@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
+const {postTicket} = require("../utils/SQL");
 const Ticket = require('../models/ticket.model');
 
 const app = express();
@@ -20,7 +21,7 @@ app.post('/ticket', (req, res) => {
         req.body.estado_idestado,
         req.body.factura_idfactura
     );
-    conn.query('INSERT INTO ticket SET ?', data, (err, result) => {
+    conn.query(postTicket, data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,
