@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
 const Area = require('../models/area.model');
-
+const {postArea}= require("../utils/SQL");
 const app = express();
 
 // parse application/x-www-form-urlencoded
@@ -20,7 +20,7 @@ app.post('/area', (req, res) => {
         req.body.capacidad,
         req.body.id_zonas
     );
-    conn.query('INSERT INTO areas SET ?', data, (err, result) => {
+    conn.query(postArea, data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,

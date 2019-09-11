@@ -6,21 +6,23 @@ module.exports = class User {
         rol,
         nombre,
         apellido,
+        ci,
         sexo,
-        edad,
         telefono,
+        edad,
         ciudad,
         municipio,
     ) {
-        this.idusuarios = idusuarios;
-        this.email = email;
+        this.idusuarios = Number(idusuarios);
+        this.email=email;
         this.pass = pass;
-        this,rol = rol;
+        this.rol =Number(rol);
         this.nombre = nombre;
         this.apellido = apellido;
+        this.ci = ci;
         this.sexo = sexo;
-        this.edad = edad;
         this.telefono = telefono;
+        this.edad = Number(edad);
         this.ciudad = ciudad;
         this.municipio = municipio;
     }
