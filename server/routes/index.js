@@ -1,6 +1,13 @@
 const express = require('express');
 const app = express();
 
+app.get("/",(req,res)=>{
+    res.json({
+        status:"Corriendo",
+        att:"Telmo"
+    })
+});
+
 app.use(require('../routes/authentication'));
 app.use(require('../routes/usuario'));
 app.use(require('../routes/area'));
@@ -11,12 +18,5 @@ app.use(require('../routes/ticket'));
 app.use(require('../routes/factura'));
 app.use(require('../routes/butaca'));
 
-
-app.get("/",(req,res)=>{
-    res.json({
-        status:"Corriendo",
-        att:"Telmo"
-    })
-});
 
 module.exports = app;
