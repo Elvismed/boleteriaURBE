@@ -7,12 +7,9 @@ app.use(require('../routes/area'));
 app.use(require('../routes/zona'));
 app.use(require('../routes/lugar'));
 app.use(require('../routes/estado'));
-app.use(require('../routes/reserva'));
-<<<<<<< HEAD
 app.use(require('../routes/ticket'));
-=======
 app.use(require('../routes/factura'));
->>>>>>> 0934286f31cd3b35e6a329c70601cf80e27a3bb8
+app.use(require('../routes/butaca'));
 
 
 app.get("/",(req,res)=>{
