@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
 const Lugar = require('../models/lugar.model');
+const {postLugar} =require("../utils/SQL");
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.post('/lugar', (req, res) => {
         req.body.nombre,
         req.body.id_reserva
     );
-    conn.query('INSERT INTO lugar SET ?', data, (err, result) => {
+    conn.query(postLugar, data, (err, result) => {
         if(err) {
             res.status(400).json({
                 ok: false,
