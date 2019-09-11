@@ -26,6 +26,11 @@ const postZona='INSERT INTO zonas SET ?';
 const getfacturas = 'SELECT * FROM factura';
 const postFactura = 'INSERT INTO factura SET ?'
 
+//BUTACAS
+const postButaca = 'INSERT INTO butaca SET ?'
+//TICKET
+const postTicket = 'INSERT INTO ticket SET ?'
+
 module.exports = {
     getUsuarios,
     getUsuarioById,
@@ -39,5 +44,7 @@ module.exports = {
     postArea,
     postReserva,
     getfacturas,
-    postFactura
+    postFactura,
+    postButaca,
+    postTicket
 }
