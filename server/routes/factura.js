@@ -47,3 +47,5 @@ app.post("/factura",(req,res)=>{
         });
     });
 });
+
+module.exports = app;

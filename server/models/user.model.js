@@ -12,6 +12,7 @@ module.exports = class User {
         edad,
         ciudad,
         municipio,
+        activo
     ) {
         this.idusuarios = Number(idusuarios);
         this.email=email;
@@ -25,5 +26,6 @@ module.exports = class User {
         this.edad = Number(edad);
         this.ciudad = ciudad;
         this.municipio = municipio;
+        this.activo = activo;
     }
 };

@@ -1,3 +1,16 @@
-const APROBADO = 1;
-const RECHAZADO = 2;
-const PENDIENTE = 3;
+const constants = {
+    // Estados del ticket
+    APROBADO: 1,
+    RECHAZADO: 2,
+    PENDIENTE: 3,
+
+    // Roles de usuario
+    ADMIN_ROLE: 1,
+    CLIENT_ROLE: 0,
+    
+    // Estados de las entidades
+    ACTIVO: 1,
+    DESACTIVADO: 0
+};
+
+module.exports = constants;
