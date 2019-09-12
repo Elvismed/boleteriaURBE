@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get('/user',(req , res)=>{
     conn.query(getUsuarios,(err, result)=>{

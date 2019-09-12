@@ -7,6 +7,8 @@ const { getFacturas,
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParse.json());
 
 app.get("/factura",(req,res)=>{
@@ -47,3 +49,5 @@ app.post("/factura",(req,res)=>{
         });
     });
 });
+
+module.exports = app;
