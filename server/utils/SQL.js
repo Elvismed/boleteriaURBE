@@ -1,4 +1,3 @@
-
 const queries = {
     // Usuarios
     getUsuarios: 'SELECT * FROM usuarios WHERE activo=1',
@@ -18,6 +17,7 @@ const queries = {
 
     // ZONA
     postZona: 'INSERT INTO zonas SET ?',
+    zonaByIdUsuario: '',
 
     // FACTURAS
     getFacturas: 'SELECT * FROM factura',

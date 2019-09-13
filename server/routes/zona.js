@@ -3,30 +3,28 @@ const bodyParser = require('body-parser');
 const conn = require('../config/db');
 const _ = require('underscore');
 const Zona = require('../models/zona.model');
-const {zonaByIdUsuario,
-        postZona} =require("../utils/SQL");
-
+const queries = require('../utils/SQL');
 const app = express();
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
- 
+
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/zona/user/:id',(req,res) =>{
-    let id_zona= req.params.id
-    conn.query(zonaByIdUsuario,id_zona,(err,result)=>{
-        if(err){
+app.get('/zona/user/:id', (req, res) => {
+    let id_zona = req.params.id
+    conn.query(queries.zonaByIdUsuario, id_zona, (err, result) => {
+        if (err) {
             res.status(400).json({
-                ok:false,
+                ok: false,
                 err
             });
         }
         res.json({
-            ok:true,
+            ok: true,
             result,
-            message:" Usuario por zona encontrado"
+            message: " Usuario por zona encontrado"
         });
     });
 });
@@ -38,8 +36,8 @@ app.post('/zona', (req, res) => {
         req.body.precio,
         req.body.idlugar
     );
-    conn.query(postZona, data, (err, result) => {
-        if(err) {
+    conn.query(queries.postZona, data, (err, result) => {
+        if (err) {
             res.status(400).json({
                 ok: false,
                 err

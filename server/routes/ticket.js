@@ -3,14 +3,14 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const conn = require('../config/db');
 const _ = require('underscore');
-const {postTicket} = require("../utils/SQL");
+const queries = require('../utils/SQL');
 const Ticket = require('../models/ticket.model');
 
 const app = express();
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
- 
+
 // parse application/json
 app.use(bodyParser.json())
 
@@ -21,8 +21,8 @@ app.post('/ticket', (req, res) => {
         req.body.estado_idestado,
         req.body.factura_idfactura
     );
-    conn.query(postTicket, data, (err, result) => {
-        if(err) {
+    conn.query(queries.postTicket, data, (err, result) => {
+        if (err) {
             res.status(400).json({
                 ok: false,
                 err

@@ -135,8 +135,7 @@ app.delete('/user/:id', (req, res) => {
             ok: true,
             result,
             message: `El usuario fue eliminado`
-        })
-    })
-
-})
+        });
+    });
+});
 module.exports = app;
