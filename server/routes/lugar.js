@@ -15,9 +15,8 @@ app.use(bodyParser.json());
 
 app.post('/lugar', (req, res) => {
     let data = new Lugar(
-        req.body.idlugar,
+        req.body.idLugar,
         req.body.nombre,
-        req.body.id_reserva
     );
     conn.query(queries.postLugar, data, (err, result) => {
         if (err) {
