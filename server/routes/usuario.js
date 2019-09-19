@@ -51,8 +51,6 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
 */
 // POST to add a new user to the database
 app.post('/user', (req, res) => {
-    let body = req.body;
-
     let data = new User(
         req.body.idusuarios = null,
         req.body.email,
@@ -66,6 +64,7 @@ app.post('/user', (req, res) => {
         req.body.edad,
         req.body.ciudad,
         req.body.municipio,
+        1
     );
     conn.query(queries.postUsuario, data, (err, result) => {
         if (err) {

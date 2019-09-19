@@ -25,7 +25,13 @@ const queries = {
 
     // BUTACAS
     postButaca: 'INSERT INTO butaca SET ?',
-    postTicket: 'INSERT INTO ticket SET ?'
+    postTicket: 'INSERT INTO ticket SET ?',
+
+    //EVENTOS
+    postEvento: 'insert INTO evento SET ?',
+    getEvento: 'SELECT * FROM evento',
+    //TIPO EVENTOS
+    postTipo: 'insert INTO tipos_evento SET ?'
 };
 
 module.exports = queries;
