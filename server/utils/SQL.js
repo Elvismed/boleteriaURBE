@@ -28,7 +28,7 @@ const queries = {
     postTicket: 'INSERT INTO ticket SET ?',
 
     //EVENTOS
-    postEvento: 'insert INTO evento SET ?',
+    postEvento: 'INSERT INTO evento SET ?',
     getEvento: 'SELECT * FROM evento',
     //TIPO EVENTOS
     postTipo: 'insert INTO tipos_evento SET ?'

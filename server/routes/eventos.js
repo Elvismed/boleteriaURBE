@@ -25,26 +25,32 @@ app.get("/eventos", (req, res) => {
 app.get("/eventos/:id", (req, res) => {
 
 });
-app.post("/eventos", (req, res) => {
-    req.body;
+app.post("/evento", (req, res) => {
+  const body =  req.body;
     let data = new Evento(
-    body.ideventos,
     body.nombre,
     body.fecha,
     body.hora,
-    body.descrip
+    body.descrip,
+    body.tipos_evento_idtipos_eventos,
+    body.usuarios_idusuarios,
+    body.idlugar
     );
 conn.query(queries.postEvento,data,(err, result)=>{
     if(err){
-         ok : false,
-        err
-        }
+        res.status(400).json({
+            ok: false,
+            err
+        });
+    }
+    
     res.json({
         ok: true,
-            result,
-            message: 'Se ha agregado exitosamente'
-    }) 
-})
+        result,
+        message: 'Se ha agregado exitosamente'
+    });
+
+    });
 
 });
 app.put("/eventos/:id", (req, res) => {
