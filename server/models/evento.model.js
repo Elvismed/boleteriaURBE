@@ -4,12 +4,14 @@ module.exports= class Evento{
         nombre,
         fecha,
         hora,
-        descrip
+        descrip,
+        imagen
     ){
         this.ideventos =ideventos;
         this.nombre = nombre;
         this.fecha = fecha;
         this.hora = hora;
         this.descrip = descrip;
+        this.imagen = imagen;
     }
 }

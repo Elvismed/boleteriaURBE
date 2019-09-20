@@ -1,6 +1,5 @@
 const express = require('express');
 const constants = require('./../utils/constants');
-
 const jwt = require('jsonwebtoken');
 
 let verifyToken = (req, res, next) => {

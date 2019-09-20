@@ -10,7 +10,10 @@ const constants = {
     
     // Estados de las entidades
     ACTIVO: 1,
-    DESACTIVADO: 0
+    DESACTIVADO: 0,
+
+    //IMAGE
+    DEFAULT_IMAGEN:"../uploads/DEFAULT.png"
 };
 
 module.exports = constants;
