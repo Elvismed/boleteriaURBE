@@ -54,7 +54,7 @@ app.post('/login', (req, res) => {
             user[0], 
             [
                 'idusuarios', 
-                'email', 
+                'email',
                 'rol', 
                 'nombre', 
                 'apellido',

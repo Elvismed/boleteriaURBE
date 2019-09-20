@@ -16,8 +16,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-app.post('/user/test', verifyToken, (req, res) => {
-    res.json(req.user);
+app.get('/user-data', [verifyToken], (req, res) => {
+    if (req.user) {
+        res.json(req.user);
+    } else {
+        return res.status(401).json({
+            ok: false,
+            message: 'Unauthorized access'
+        });
+    }
 });
 
 app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
@@ -102,7 +109,7 @@ app.get('/user/:id', (req, res) => {
 
 app.put('/user/:id', (req, res) => {
     let idusuarios = req.params.id
-    let data = _.pick(req.body, ['email', 'nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio', 'pass']);
+    let data = _.pick(req.body, ['email', 'nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio']);
 
     data.pass = bcrypt.hashSync(data.pass, 10);
 
