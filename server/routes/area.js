@@ -6,11 +6,16 @@ const Area = require('../models/area.model');
 const {postArea}= require("../utils/SQL");
 const app = express();
 
+const { allowCors } = require('../middlewares/web-security');
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json
 app.use(bodyParser.json())
+
+// Allow CORS
+app.use(allowCors);
 
 app.post('/area', (req, res) => {
     let data = new Area(

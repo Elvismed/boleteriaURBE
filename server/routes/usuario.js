@@ -16,8 +16,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-app.post('/user/test', verifyToken, (req, res) => {
-    res.json(req.user);
+app.get('/user-data', [verifyToken], (req, res) => {
+    if (req.user) {
+        res.json(req.user);
+    } else {
+        return res.status(401).json({
+            ok: false,
+            message: 'Unauthorized access'
+        });
+    }
 });
 
 app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
@@ -51,8 +58,6 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
 */
 // POST to add a new user to the database
 app.post('/user', (req, res) => {
-    let body = req.body;
-
     let data = new User(
         req.body.idusuarios = null,
         req.body.email,
@@ -66,6 +71,7 @@ app.post('/user', (req, res) => {
         req.body.edad,
         req.body.ciudad,
         req.body.municipio,
+        1
     );
     conn.query(queries.postUsuario, data, (err, result) => {
         if (err) {
@@ -103,7 +109,7 @@ app.get('/user/:id', (req, res) => {
 
 app.put('/user/:id', (req, res) => {
     let idusuarios = req.params.id
-    let data = _.pick(req.body, ['email', 'nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio', 'pass']);
+    let data = _.pick(req.body, ['email', 'nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio']);
 
     data.pass = bcrypt.hashSync(data.pass, 10);
 
@@ -135,8 +141,7 @@ app.delete('/user/:id', (req, res) => {
             ok: true,
             result,
             message: `El usuario fue eliminado`
-        })
-    })
-
-})
+        });
+    });
+});
 module.exports = app;

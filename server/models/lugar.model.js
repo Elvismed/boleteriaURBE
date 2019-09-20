@@ -1,14 +1,12 @@
 module.exports = class Lugar {
     constructor(
-        idlugar,
+        idLugar,
         nombre,
         imagen,
-        id_reserva,
-        
+       
     ) {
-        this.idlugar = idlugar;
+        this.idLugar = idLugar;
         this.nombre = nombre;
-        this.imagen=imagen;
-        this.id_reserva = id_reserva;
+        this.imagen = imagen
     }
 };

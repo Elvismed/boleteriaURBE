@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const _ = require('underscore');
 
+const { allowCors } = require('../middlewares/web-security');
+
 // MySQL connection
 const conn = require('../config/db');
 
@@ -15,23 +17,33 @@ app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use(bodyparser.json());
 
+// Allow CORS
+app.use(allowCors);
+
 // POST to login
 app.post('/login', (req, res) => {
-    let body = req.body;
+    const body = req.body;
 
     conn.query('SELECT * FROM usuarios WHERE email=?', body.email, (err, result) => {
         if(err) {
-            res.status(401).json({
+            return res.status(500).json({
+                ok: false,
+                err
+            });
+        }
+
+        if (result.length <= 0) {
+            return res.status(401).json({
                 ok: false,
                 message: 'Login failed (E)',
                 err
             });
         }
 
-        let user = result;
+        const user = result;
 
         if(!bcrypt.compareSync(body.pass, user[0].pass)) {
-            res.status(401).json({
+            return res.status(401).json({
                 ok: false,
                 message: 'Login failed (P)',
                 err
@@ -42,7 +54,7 @@ app.post('/login', (req, res) => {
             user[0], 
             [
                 'idusuarios', 
-                'email', 
+                'email',
                 'rol', 
                 'nombre', 
                 'apellido',

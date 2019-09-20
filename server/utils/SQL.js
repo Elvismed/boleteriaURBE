@@ -1,4 +1,3 @@
-
 const queries = {
     // Usuarios
     getUsuarios: 'SELECT * FROM usuarios WHERE activo=1',
@@ -18,6 +17,7 @@ const queries = {
 
     // ZONA
     postZona: 'INSERT INTO zonas SET ?',
+    zonaByIdUsuario: '',
 
     // FACTURAS
     getFacturas: 'SELECT * FROM factura',
@@ -25,7 +25,13 @@ const queries = {
 
     // BUTACAS
     postButaca: 'INSERT INTO butaca SET ?',
-    postTicket: 'INSERT INTO ticket SET ?'
+    postTicket: 'INSERT INTO ticket SET ?',
+
+    //EVENTOS
+    postEvento: 'INSERT INTO evento SET ?',
+    getEvento: 'SELECT * FROM evento',
+    //TIPO EVENTOS
+    postTipo: 'insert INTO tipos_evento SET ?'
 };
 
 module.exports = queries;
