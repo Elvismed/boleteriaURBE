@@ -6,7 +6,7 @@ const queries = require('../utils/SQL');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParse.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 

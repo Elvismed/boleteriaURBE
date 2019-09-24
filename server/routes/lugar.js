@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const conn = require('../config/db');
 const _ = require('underscore');
 const Lugar = require('../models/lugar.model');
-const queries = require('../utils/SQL');
+const {postLugar} =require("../utils/SQL");
+const multer = require('multer');
 
 const app = express();
 
@@ -12,6 +13,25 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json());
+
+const storage = multer.diskStorage({
+    destination:('server/public/uploads'),
+    filename: (req, file, cb) =>{
+        cb(null, file.originalname);
+    }
+})
+ 
+app.use(multer({
+    storage,
+    dest:('server/public/uploads')
+}).single('image'));
+
+
+app.post('/lugar/image',(req,res)=>{
+    console.log(req.file);
+    res.json(req.body);
+});
+
 
 app.post('/lugar', (req, res) => {
     let data = new Lugar(
