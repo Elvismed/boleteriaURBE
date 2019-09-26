@@ -57,7 +57,7 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
 }
 */
 // POST to add a new user to the database
-app.post('/user', (req, res) => {
+app.post('/registro', (req, res) => {
     let data = new User(
         req.body.idusuarios = null,
         req.body.email,

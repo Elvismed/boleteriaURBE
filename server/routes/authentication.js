@@ -3,6 +3,7 @@ const bodyparser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const _ = require('underscore');
+const logger = require('../utils/logger');
 
 const { allowCors } = require('../middlewares/web-security');
 
@@ -22,10 +23,11 @@ app.use(allowCors);
 
 // POST to login
 app.post('/login', (req, res) => {
+    var ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
     const body = req.body;
-
     conn.query('SELECT * FROM usuarios WHERE email=?', body.email, (err, result) => {
         if(err) {
+            logger.info('Login failed')
             return res.status(500).json({
                 ok: false,
                 err
@@ -33,6 +35,7 @@ app.post('/login', (req, res) => {
         }
 
         if (result.length <= 0) {
+            logger.info('Login failed E')
             return res.status(401).json({
                 ok: false,
                 message: 'Login failed (E)',
@@ -43,6 +46,7 @@ app.post('/login', (req, res) => {
         const user = result;
 
         if(!bcrypt.compareSync(body.pass, user[0].pass)) {
+            logger.warn('error warn test')
             return res.status(401).json({
                 ok: false,
                 message: 'Login failed (P)',
@@ -74,8 +78,9 @@ app.post('/login', (req, res) => {
             process.env.SECRET_KEY,
             { expiresIn: process.env.TOKEN_EXPIRY }
         );
-
+      
         res.json(token);
+        logger.info(`Usuario Autentificado  ${ip.slice(7)}` )
     });
 });
 
