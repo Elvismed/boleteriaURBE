@@ -73,6 +73,7 @@ CREATE TABLE `evento` (
   `fecha` date NOT NULL,
   `hora` varchar(45) NOT NULL,
   `descrip` text NOT NULL,
+  `image` varchar(500) NOT NULL,
   `tipos_evento_idtipos_eventos` int(11) NOT NULL,
   `usuarios_idusuarios` int(11) NOT NULL,
   `idlugar` int(11) NOT NULL
@@ -146,7 +147,8 @@ CREATE TABLE `usuarios` (
   `edad` int(11) NOT NULL,
   `ciudad` varchar(45) NOT NULL,
   `municipio` varchar(45) NOT NULL,
-  `activo` tinyint(1) NOT NULL DEFAULT 1
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `image` varchar(500) NOT NULL
 );
 --
 -- Dumping data for table `usuarios`
