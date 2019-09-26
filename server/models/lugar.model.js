@@ -2,11 +2,11 @@ module.exports = class Lugar {
     constructor(
         idLugar,
         nombre,
-        imagen,
-       
+        image,
+
     ) {
         this.idLugar = idLugar;
         this.nombre = nombre;
-        this.imagen = imagen
+        this.image = image
     }
 };
