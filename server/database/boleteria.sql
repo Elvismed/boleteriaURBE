@@ -73,6 +73,7 @@ CREATE TABLE `evento` (
   `fecha` date NOT NULL,
   `hora` varchar(45) NOT NULL,
   `descrip` text NOT NULL,
+  `image` varchar(500) NOT NULL,
   `tipos_evento_idtipos_eventos` int(11) NOT NULL,
   `usuarios_idusuarios` int(11) NOT NULL,
   `idlugar` int(11) NOT NULL
@@ -101,7 +102,8 @@ CREATE TABLE `factura` (
 
 CREATE TABLE `lugar` (
   `idLugar` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL
+  `nombre` varchar(45) NOT NULL,
+  `image` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -145,7 +147,8 @@ CREATE TABLE `usuarios` (
   `edad` int(11) NOT NULL,
   `ciudad` varchar(45) NOT NULL,
   `municipio` varchar(45) NOT NULL,
-  `activo` tinyint(1) NOT NULL DEFAULT 1
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `image` varchar(500) NOT NULL
 );
 --
 -- Dumping data for table `usuarios`
@@ -251,6 +254,33 @@ ALTER TABLE `zonas`
 --
 ALTER TABLE `usuarios`
   MODIFY `idusuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+ALTER TABLE `lugar`
+  MODIFY `idLugar` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `butacas`
+  MODIFY `idbutacas` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `estado`
+  MODIFY `idestado` int(11) NOT NULL AUTO_INCREMENT;
+  
+ALTER TABLE `evento`
+  MODIFY `ideventos` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `factura`
+  MODIFY `idfactura` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `ticket`
+  MODIFY `idticket` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `tipo_evento`
+  MODIFY `idtipos_eventos` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `usuarios`
+  MODIFY `idusuarios` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `zonas`
+  MODIFY `idzona_butaca` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
