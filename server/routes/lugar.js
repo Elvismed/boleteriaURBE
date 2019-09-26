@@ -4,7 +4,7 @@ const conn = require('../config/db');
 const _ = require('underscore');
 const Lugar = require('../models/lugar.model');
 const {postLugar} =require("../utils/SQL");
-const multer = require('multer');
+const upload = require('../middlewares/upload-images');
 
 const app = express();
 
@@ -14,26 +14,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-const storage = multer.diskStorage({
-    destination:('server/public/uploads'),
-    filename: (req, file, cb) =>{
-        cb(null, file.originalname);
-    }
-})
- 
-app.use(multer({
-    storage,
-    dest:('server/public/uploads')
-}).single('image'));
-
-
-app.post('/lugar/image',(req,res)=>{
+app.post('/lugar/image',[upload],(req,res)=>{
     console.log(req.file);
-    res.json(req.body);
+    res.json(req.file);
 });
 
 
-app.post('/lugar', (req, res) => {
+app.post('/lugar',(req, res) => {
     let data = new Lugar(
         req.body.idLugar,
         req.body.nombre,
