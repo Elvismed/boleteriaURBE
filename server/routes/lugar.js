@@ -50,7 +50,6 @@ app.post('/lugar', [upload], async(req, res) => {
                 err
             });
         }
-
         res.json({
             ok: true,
             result,
