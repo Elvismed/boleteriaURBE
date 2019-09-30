@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/user-data', [verifyToken], (req, res) => {
+app.get('/user-data', verifyToken, (req, res) => {
     if (req.user) {
         res.json(req.user);
     } else {
@@ -90,7 +90,7 @@ app.post('/registro',[upload], async (req, res) => {
 });
 
 
-app.get('/user/:id', (req, res) => {
+app.get('/user/:id',verifyToken, (req, res) => {
     let idusuarios = req.params.id
     conn.query(queries.getUsuarioById, idusuarios, (err, result) => {
         if (err) {
@@ -108,7 +108,7 @@ app.get('/user/:id', (req, res) => {
     });
 });
 
-app.put('/user/:id', [upload], (req, res) => {
+app.put('/user/:id', [verifyToken,upload], (req, res) => {
     let idusuarios = req.params.id
     let data = _.pick(req.body, ['email','pass','nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio','image']);
     let image = req.file.path
@@ -129,7 +129,7 @@ app.put('/user/:id', [upload], (req, res) => {
     })
 })
 
-app.delete('/user/:id', (req, res) => {
+app.delete('/user/:id', verifyToken,(req, res) => {
     let idusuarios = req.params.id
     conn.query(queries.deleteUsuario, idusuarios, (err, result) => {
         if (err) {
