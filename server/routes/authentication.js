@@ -26,7 +26,7 @@ app.post('/login', (req, res) => {
     var ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
     const body = req.body;
     conn.query('SELECT * FROM usuarios WHERE email=?', body.email, (err, result) => {
-        if(err) {
+        if (err) {
             logger.info('Login failed')
             return res.status(500).json({
                 ok: false,
@@ -45,7 +45,7 @@ app.post('/login', (req, res) => {
 
         const user = result;
 
-        if(!bcrypt.compareSync(body.pass, user[0].pass)) {
+        if (!bcrypt.compareSync(body.pass, user[0].pass)) {
             logger.warn('error warn test')
             return res.status(401).json({
                 ok: false,
@@ -55,19 +55,20 @@ app.post('/login', (req, res) => {
         }
 
         let userRes = _.pick(
-            user[0], 
-            [
-                'idusuarios', 
+            user[0], [
+                'idusuarios',
                 'email',
-                'rol', 
-                'nombre', 
+                'rol',
+                'nombre',
                 'apellido',
                 'ci',
                 'sexo',
                 'telefono',
                 'edad',
                 'ciudad',
-                'municipio'
+                'municipio',
+                'estado',
+                'image'
             ]
         );
 
@@ -75,12 +76,11 @@ app.post('/login', (req, res) => {
 
         let token = jwt.sign(
             userRes,
-            process.env.SECRET_KEY,
-            { expiresIn: process.env.TOKEN_EXPIRY }
+            process.env.SECRET_KEY, { expiresIn: process.env.TOKEN_EXPIRY }
         );
-      
+
         res.json(token);
-        logger.info(`Usuario Autentificado  ${ip.slice(7)}` )
+        logger.info(`Usuario Autentificado  ${ip.slice(7)}`)
     });
 });
 
