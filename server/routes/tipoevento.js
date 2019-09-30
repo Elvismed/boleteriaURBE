@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.post('/creartipo', (req,res)=>{
     const body = req.body;
     let data = new Tipoevento(
-        body.idtipos_eventos,
+        body.idtipos_eventos = null,
         body.nombre
     )
   conn.query(queries.postTipo,data,(err, result)=>{

@@ -5,6 +5,7 @@ const conn = require('../config/db');
 const _ = require('underscore');
 const User = require('../models/user.model');
 const queries = require('../utils/SQL');
+const upload = require('../middlewares/upload-images');
 
 const { verifyToken, verifyAdmin } = require('./../middlewares/auth');
 
@@ -57,7 +58,7 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
 }
 */
 // POST to add a new user to the database
-app.post('/registro', (req, res) => {
+app.post('/registro',[upload], async (req, res) => {
     let data = new User(
         req.body.idusuarios = null,
         req.body.email,
@@ -71,9 +72,9 @@ app.post('/registro', (req, res) => {
         req.body.edad,
         req.body.ciudad,
         req.body.municipio,
-        1
+        req.file.path
     );
-    conn.query(queries.postUsuario, data, (err, result) => {
+    conn.query(queries.postUsuario,await data, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -107,12 +108,12 @@ app.get('/user/:id', (req, res) => {
     });
 });
 
-app.put('/user/:id', (req, res) => {
+app.put('/user/:id', [upload], (req, res) => {
     let idusuarios = req.params.id
-    let data = _.pick(req.body, ['email', 'nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio']);
-
+    let data = _.pick(req.body, ['email','pass','nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio','image']);
+    let image = req.file.path
     data.pass = bcrypt.hashSync(data.pass, 10);
-
+    data.image = image
     conn.query(queries.updateUsuarioById, [data, idusuarios], (err, result) => {
         if (err) {
             res.status(400).json({
@@ -123,7 +124,7 @@ app.put('/user/:id', (req, res) => {
         res.json({
             ok: true,
             result,
-            message: `Usuario  fue cambiado`
+            message: `Toma Perra`
         })
     })
 })

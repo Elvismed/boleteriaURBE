@@ -14,6 +14,8 @@ const queries = {
 
     // LUGAR
     postLugar: 'INSERT INTO lugar SET ?',
+    updateEventoById: 'UPDATE lugar SET ? WHERE idLugar = ?',
+    deleteLugar: 'UPDATE lugar SET activo=0 WHERE idLugar=?',
 
     // ZONA
     postZona: 'INSERT INTO zonas SET ?',
@@ -30,6 +32,8 @@ const queries = {
     //EVENTOS
     postEvento: 'INSERT INTO evento SET ?',
     getEvento: 'SELECT * FROM evento',
+    updateEventoById: 'UPDATE evento SET ? WHERE ideventos = ?',
+    deleteEvento: 'UPDATE evento SET activo=0 WHERE ideventos=?',
     //TIPO EVENTOS
     postTipo: 'insert INTO tipos_evento SET ?'
 };

@@ -58,4 +58,38 @@ app.post('/lugar', [upload], async(req, res) => {
         });
     });
 });
+app.put("/lugar/:id",[upload], (req, res) => {
+    let idLugar = req.params.id
+    let data = _.pick(req.body, ['nombre','image']);
+
+    conn.query(queries.updateLugarById,await [data, idLugar], (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok: true,
+            result,
+            message: `Lugar cambiado`
+        })
+    })
+});
+app.delete("/lugar/:id", (req, res) => {
+    let idLugar = req.params.id
+    conn.query(queries.deleteLugar, idLugar, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok: true,
+            result,
+            message: `El Lugar fue eliminado`
+        });
+    });
+});
 module.exports = app;

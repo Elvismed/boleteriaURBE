@@ -8,7 +8,7 @@ module.exports= class Evento{
         tipos_evento_idtipos_eventos,
         usuarios_idusuarios,
         idlugar,
-        imagen
+        image
 
     ){
         
@@ -20,6 +20,6 @@ module.exports= class Evento{
         this.tipos_evento_idtipos_eventos = tipos_evento_idtipos_eventos;
         this.usuarios_idusuarios = usuarios_idusuarios;
         this.idlugar = idlugar;
-        this.imagen = imagen;
+        this.image = image;
     }
 }

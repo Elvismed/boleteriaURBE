@@ -258,7 +258,7 @@ ALTER TABLE `usuarios`
 ALTER TABLE `lugar`
   MODIFY `idLugar` int(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `butacas`
+ALTER TABLE `butaca`
   MODIFY `idbutacas` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `estado`
@@ -273,14 +273,14 @@ ALTER TABLE `factura`
 ALTER TABLE `ticket`
   MODIFY `idticket` int(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `tipo_evento`
+ALTER TABLE `tipos_evento`
   MODIFY `idtipos_eventos` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `usuarios`
   MODIFY `idusuarios` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `zonas`
-  MODIFY `idzona_butaca` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idzona_bucata` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

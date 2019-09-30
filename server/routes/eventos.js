@@ -3,7 +3,8 @@ const conn = require("../config/db");
 const bodyParse = require("body-parser");
 const Evento = require("../models/evento.model");
 const queries = require('../utils/SQL');
-
+const upload = require('../middlewares/upload-images');
+const _ = require('underscore');
 const app = express();
 
 app.use(bodyParse.json());
@@ -25,7 +26,7 @@ app.get("/eventos", (req, res) => {
 app.get("/eventos/:id", (req, res) => {
 
 });
-app.post("/evento", (req, res) => {
+app.post("/evento",[upload], async (req, res) => {
   const body =  req.body;
     let data = new Evento(
     body.nombre,
@@ -34,9 +35,10 @@ app.post("/evento", (req, res) => {
     body.descrip,
     body.tipos_evento_idtipos_eventos,
     body.usuarios_idusuarios,
-    body.idlugar
+    body.idlugar,
+    req.file.path
     );
-conn.query(queries.postEvento,data,(err, result)=>{
+conn.query(queries.postEvento,await data,(err, result)=>{
     if(err){
         res.status(400).json({
             ok: false,
@@ -53,10 +55,38 @@ conn.query(queries.postEvento,data,(err, result)=>{
     });
 
 });
-app.put("/eventos/:id", (req, res) => {
+app.put("/eventos/:id",[upload], (req, res) => {
+    let ideventos = req.params.id
+    let data = _.pick(req.body, ['nombre','fecha','hora', 'descrip', 'image']);
 
+    conn.query(queries.updateEventoById,await [data, ideventos], (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok: true,
+            result,
+            message: `Evento  cambiado`
+        })
+    })
 });
-app.delete("/eventos", (req, res) => {
-
+app.delete("/eventos/:id", (req, res) => {
+    let ideventos = req.params.id
+    conn.query(queries.deleteEvento, ideventos, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok: true,
+            result,
+            message: `El Evento fue eliminado`
+        });
+    });
 });
 module.exports = app;

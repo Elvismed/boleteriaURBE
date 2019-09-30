@@ -4,13 +4,9 @@ const morgan = require("morgan");
 const path = require('path');
 
 require('./config/config');
-<<<<<<< HEAD
 
-//middlewares
-=======
 require('./middlewares/upload-images')
-    //middlewares
->>>>>>> be7b2b7708a64cc2016ddcb4827568e45d26c050
+//middlewares
 app.use(morgan("dev"));
 app.use(express.json());
 
