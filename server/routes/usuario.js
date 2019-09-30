@@ -23,7 +23,7 @@ app.get('/user-data', verifyToken, (req, res) => {
     } else {
         return res.status(401).json({
             ok: false,
-            message: 'Unauthorized access'
+            message: 'ya valiste verga'
         });
     }
 });
@@ -58,7 +58,7 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
 }
 */
 // POST to add a new user to the database
-app.post('/registro',[upload], async (req, res) => {
+app.post('/registro', [upload], async(req, res) => {
     let data = new User(
         req.body.idusuarios = null,
         req.body.email,
@@ -74,7 +74,7 @@ app.post('/registro',[upload], async (req, res) => {
         req.body.municipio,
         req.file.path
     );
-    conn.query(queries.postUsuario,await data, (err, result) => {
+    conn.query(queries.postUsuario, await data, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -102,7 +102,7 @@ app.get('/user/:id',verifyToken, (req, res) => {
         res.json({
             ok: true,
             result,
-            message: `el usuario `
+            message: 'Aqui perro'
         })
 
     });
@@ -110,7 +110,7 @@ app.get('/user/:id',verifyToken, (req, res) => {
 
 app.put('/user/:id', [verifyToken,upload], (req, res) => {
     let idusuarios = req.params.id
-    let data = _.pick(req.body, ['email','pass','nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio','image']);
+    let data = _.pick(req.body, ['email', 'pass', 'nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio', 'image']);
     let image = req.file.path
     data.pass = bcrypt.hashSync(data.pass, 10);
     data.image = image
