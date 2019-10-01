@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = class Ticket {
     constructor(
         idticket,
@@ -6,7 +8,7 @@ module.exports = class Ticket {
         factura_idfactura
     ) {
         this.idticket = idticket;
-        this.codigo= codigo; 
+        this.codigo = codigo;
         this.estado_idestado = estado_idestado;
         this.factura_idfactura = factura_idfactura;
     }

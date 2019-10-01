@@ -1,6 +1,8 @@
-module.exports= class Evento{
+'use strict';
+
+module.exports = class Evento {
     constructor(
-    
+
         nombre,
         fecha,
         hora,
@@ -10,8 +12,8 @@ module.exports= class Evento{
         idlugar,
         image
 
-    ){
-        
+    ) {
+
         this.nombre = nombre;
         this.fecha = fecha;
         this.hora = hora;

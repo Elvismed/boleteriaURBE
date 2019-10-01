@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = class User {
     constructor(
         idusuarios,
@@ -16,9 +18,9 @@ module.exports = class User {
         image
     ) {
         this.idusuarios = Number(idusuarios);
-        this.email=email;
+        this.email = email;
         this.pass = pass;
-        this.rol =Number(rol);
+        this.rol = Number(rol);
         this.nombre = nombre;
         this.apellido = apellido;
         this.ci = ci;
@@ -28,6 +30,6 @@ module.exports = class User {
         this.ciudad = ciudad;
         this.municipio = municipio;
         this.activo = activo;
-        this.image=image;
+        this.image = image;
     }
 };

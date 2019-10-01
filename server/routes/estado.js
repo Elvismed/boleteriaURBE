@@ -12,7 +12,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-app.post('/estado', (req, res) => {
+app.get('/estado/:estado', (req, res) => {
+
+});
+
+app.post('/estado/:id', (req, res) => {
     let data = new Estado(
         req.body.id_estado,
         req.body.estado,
@@ -21,7 +25,7 @@ app.post('/estado', (req, res) => {
         if (err) {
             res.status(400).json({
                 ok: false,
-                err
+                err: err
             });
         }
 
@@ -32,4 +36,23 @@ app.post('/estado', (req, res) => {
         });
     });
 });
+app.put('/estado/:id', async(req, res) => {
+    let id_estado = req.params.id;
+    let data = _.pick(req.body, ['estado']);
+
+    conn.query(queries, await [data, id_estado], (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+        res.json({
+            ok: true,
+            result: result,
+            message: 'Evento cambiado'
+        });
+    });
+});
+
 module.exports = app;

@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
@@ -14,6 +16,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
+
+// query de butaca por estado
+// query de butaca por por persona
+
+
+
 app.post('/butaca', (req, res) => {
     let data = new Butaca(
         req.body.idbutacas,
@@ -26,7 +34,7 @@ app.post('/butaca', (req, res) => {
         if (err) {
             res.status(400).json({
                 ok: false,
-                err
+                err: err
             });
         }
 
@@ -37,4 +45,5 @@ app.post('/butaca', (req, res) => {
         });
     });
 });
+
 module.exports = app;

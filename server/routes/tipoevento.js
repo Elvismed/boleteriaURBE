@@ -12,25 +12,25 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-app.post('/creartipo', (req,res)=>{
+app.post('/creartipo', (req, res) => {
     const body = req.body;
     let data = new Tipoevento(
         body.idtipos_eventos = null,
         body.nombre
     )
-  conn.query(queries.postTipo,data,(err, result)=>{
-    if (err) {
-        res.status(400).json({
-            ok: false,
-            err
+    conn.query(queries.postTipo, data, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+        res.json({
+            ok: true,
+            result: result,
+            message: 'Se ha agregado exitosamente'
         });
-    }
-    res.json({
-        ok: true,
-        result,
-        message: 'Se ha agregado exitosamente'
     });
-  })  
-})
+});
 
 module.exports = app;

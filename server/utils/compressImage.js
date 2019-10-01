@@ -1,4 +1,6 @@
 const tinify = require('tinify');
+'use strict';
+
 const fs = require('fs')
 tinify.key = "0gfR9K92n4DVRHFFHBQY2cSDH1JYJbnC"
 

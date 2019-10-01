@@ -1,3 +1,4 @@
+'use strict'
 const express = require("express");
 const bodyParser = require("body-parser");
 const conn = require("../config/db");
@@ -10,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
-app.get("/factura", (req, res) => {
+app.get('/facturas', (req, res) => {
     conn.query(queries.getFacturas, (err, result) => {
         if (err) {
             res.status(400).json({
@@ -24,8 +25,22 @@ app.get("/factura", (req, res) => {
         })
     });
 });
+app.get('/factura/:numero_fac', (req, res) => {
+    conn.query(queries.getFacturasByCod, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok: true,
+            result
+        })
+    });
+});
 
-app.post("/factura", (req, res) => {
+app.post('/factura', (req, res) => {
     let data = new Factura(
         req.body.id = null,
         req.body.numero_fact,

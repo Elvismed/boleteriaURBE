@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = class Butaca {
     constructor(
         idbutacas,
@@ -10,6 +12,6 @@ module.exports = class Butaca {
         this.ubicacion = ubicacion;
         this.cod_butaca = cod_butaca;
         this.area_idarea = area_idarea;
-        this.ticket_idticket = ticket_idticket;   
+        this.ticket_idticket = ticket_idticket;
     }
 };

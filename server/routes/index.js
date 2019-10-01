@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.json({
-        status:"Corriendo",
-        att:"Telmo"
+        status: "Corriendo",
+        att: "By: Telmo"
     })
 });
 

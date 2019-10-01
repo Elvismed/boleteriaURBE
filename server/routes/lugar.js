@@ -1,9 +1,11 @@
+'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const conn = require('../config/db');
 const _ = require('underscore');
 const Lugar = require('../models/lugar.model');
-const { postLugar } = require("../utils/SQL");
+const queries = require('../utils/SQL');
 const upload = require('../middlewares/upload-images');
 
 const app = express();
@@ -14,15 +16,22 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-app.post('/lugar/image', [upload], (req, res) => {
-    console.log(req.file);
-    console.log(req.file.path)
-    res.json(req.file);
-});
+
+/*
+
+Base para raquetazos de telmo
+
+// app.post('/lugar/image', [upload], (req, res) => {
+//     console.log(req.file);
+//     console.log(req.file.path)
+//     res.json(req.file);
+// });
+
+*/
 
 app.get('/lugar/:id', (req, res) => {
     let idlugar = req.params.id
-    conn.query('SELECT * FROM lugar WHERE idLugar=?', idlugar, (err, result) => {
+    conn.query(queries.getLugarById, idlugar, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -32,7 +41,7 @@ app.get('/lugar/:id', (req, res) => {
         res.json({
             ok: true,
             result,
-            message: `telmo `
+            message: 'telmo'
         })
 
     });
@@ -43,7 +52,7 @@ app.post('/lugar', [upload], async(req, res) => {
         req.body.nombre,
         req.file.path
     );
-    conn.query('INSERT INTO lugar SET ?', await data, (err, result) => {
+    conn.query(queries.postLugar, await data, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -57,11 +66,11 @@ app.post('/lugar', [upload], async(req, res) => {
         });
     });
 });
-app.put("/lugar/:id",[upload], (req, res) => {
+app.put('/lugar/:id', [upload], async(req, res) => {
     let idLugar = req.params.id
-    let data = _.pick(req.body, ['nombre','image']);
+    let data = _.pick(req.body, ['nombre', 'image']);
 
-    conn.query(queries.updateLugarById,await [data, idLugar], (err, result) => {
+    conn.query(queries.updateLugarById, await [data, idLugar], (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -71,11 +80,11 @@ app.put("/lugar/:id",[upload], (req, res) => {
         res.json({
             ok: true,
             result,
-            message: `Lugar cambiado`
-        })
-    })
+            message: 'Lugar cambiado'
+        });
+    });
 });
-app.delete("/lugar/:id", (req, res) => {
+app.delete('/lugar/:id', (req, res) => {
     let idLugar = req.params.id
     conn.query(queries.deleteLugar, idLugar, (err, result) => {
         if (err) {
@@ -87,8 +96,9 @@ app.delete("/lugar/:id", (req, res) => {
         res.json({
             ok: true,
             result,
-            message: `El Lugar fue eliminado`
+            message: 'El Lugar fue eliminado'
         });
     });
 });
+
 module.exports = app;

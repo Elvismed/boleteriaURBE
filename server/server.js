@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 const morgan = require("morgan");
@@ -6,7 +8,7 @@ const path = require('path');
 require('./config/config');
 
 require('./middlewares/upload-images')
-//middlewares
+    //middlewares
 app.use(morgan("dev"));
 app.use(express.json());
 

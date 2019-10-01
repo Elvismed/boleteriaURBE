@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const conn = require('../config/db');
@@ -15,6 +17,22 @@ app.use(bodyParser.json());
 app.get('/zona/user/:id', (req, res) => {
     let id_zona = req.params.id
     conn.query(queries.zonaByIdUsuario, id_zona, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok: true,
+            result,
+            message: " Usuario por zona encontrado"
+        });
+    });
+});
+
+app.get('/zonas', (req, res) => {
+    conn.query(queries.getzona, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
