@@ -2,14 +2,13 @@
 
 module.exports = class Area {
     constructor(
-        id_area,
         nombre,
         capacidad,
-        id_zonas
+        zonas_bucata_idzona_bucata
+
     ) {
-        this.id_area = id_area;
         this.nombre = nombre;
         this.capacidad = capacidad;
-        this.id_zonas = id_zonas;
+        this.zonas_bucata_idzona_bucata = zonas_bucata_idzona_bucata;
     }
 };

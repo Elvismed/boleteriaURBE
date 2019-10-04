@@ -2,14 +2,12 @@
 
 module.exports = class Zona {
     constructor(
-        id_zona,
         nombre,
         precio,
-        idlugar
+        Lugar_idLugar
     ) {
-        this.id_zona = id_zona;
         this.nombre = nombre;
         this.precio = precio;
-        this.idlugar = idlugar;
+        this.Lugar_idLugar = Lugar_idLugar;
     }
 };

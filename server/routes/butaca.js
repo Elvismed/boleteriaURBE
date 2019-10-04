@@ -24,11 +24,10 @@ app.use(bodyParser.json());
 
 app.post('/butaca', (req, res) => {
     let data = new Butaca(
-        req.body.idbutacas,
         req.body.ubicacion,
         req.body.cod_butaca,
-        req.body.area_idarea,
-        req.body.ticket_idticket
+        req.body.area_idarea
+
     );
     conn.query(queries.postButaca, data, (err, result) => {
         if (err) {

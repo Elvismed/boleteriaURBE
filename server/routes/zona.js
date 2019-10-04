@@ -7,7 +7,7 @@ const _ = require('underscore');
 const Zona = require('../models/zona.model');
 const queries = require('../utils/SQL');
 const app = express();
-
+const { verifyToken, verifyAdmin } = require('./../middlewares/auth');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -47,12 +47,11 @@ app.get('/zonas', (req, res) => {
     });
 });
 
-app.post('/zona', (req, res) => {
+app.post('/zona',[verifyToken, verifyAdmin],(req, res) => {
     let data = new Zona(
-        req.body.id_zona,
         req.body.nombre,
         req.body.precio,
-        req.body.idlugar
+        req.body.Lugar_idLugar
     );
     conn.query(queries.postZona, data, (err, result) => {
         if (err) {

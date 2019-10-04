@@ -8,6 +8,7 @@ const queries = require('../utils/SQL');
 const upload = require('../middlewares/upload-images');
 const _ = require('underscore');
 const app = express();
+const { verifyToken, verifyAdmin } = require('./../middlewares/auth');
 
 app.use(bodyParse.json());
 
@@ -37,7 +38,7 @@ app.get('/eventos/:id', (req, res) => {
     });
 });
 
-app.post('/evento', [upload], async(req, res) => {
+app.post('/evento', [verifyToken, verifyAdmin,upload], async(req, res) => {
     const body = req.body;
     let data = new Evento(
         body.nombre,

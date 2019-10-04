@@ -74,6 +74,7 @@ app.post('/registro', [upload], async(req, res) => {
         req.body.edad,
         req.body.ciudad,
         req.body.municipio,
+        req.body.activo,
         req.file.path
     );
     conn.query(queries.postUsuario, await data, (err, result) => {

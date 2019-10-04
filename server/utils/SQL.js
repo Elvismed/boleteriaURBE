@@ -9,7 +9,7 @@ const queries = {
     deleteUsuario: 'UPDATE usuarios SET activo=0 WHERE idusuarios= ?',
 
     // AREA
-    postArea: 'INSERT INTO areas SET ?',
+    postArea: 'INSERT INTO area SET ?',
 
     // ESTADO
     getEstado: 'SELECT * FROM estado WHERE APROBADO= ? AND RECHAZADO = ? AND PENDIENTE = ?',
