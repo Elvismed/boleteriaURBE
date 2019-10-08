@@ -31,48 +31,29 @@ app.get('/user-data', verifyToken, (req, res) => {
 });
 
 app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
-    conn.query(queries.getUsuarios, (err, result) => {
-        if (err) {
-            res.status(400).json({
-                ok: false,
-                err: err
-            });
-        }
+        conn.query(queries.getUsuarios, (err, result) => {
+            if (err) {
+                res.status(400).json({
+                    ok: false,
+                    err: err
+                });
+            }
 
-        res.json(result);
-    });
-})
-
-/*
-{
-	"idusuarios": null,
-	"email": "luigidicarlo888@gmail.com",
-	"pass": "25189975",
-	"rol": 1,
-	"nombre": "Luis",
-	"apellido": "Huerta",
-	"ci": "25189975",
-	"sexo": "M",
-	"telefono": "04124722052",
-	"edad": 24,
-	"ciudad": "Maracaibo",
-	"municipio": "Maracaibo"
-}
-*/
-// POST to add a new user to the database
+            res.json(result);
+        });
+    })
+    // POST to add a new user to the database
 app.post('/registro', [upload], async(req, res) => {
     let data = new User(
-        req.body.idusuarios = null,
         req.body.email,
         bcrypt.hashSync(req.body.pass, 10),
         req.body.rol,
         req.body.nombre,
         req.body.apellido,
-        req.body.ci,
+        req.body.identificacion,
         req.body.sexo,
         req.body.telefono,
         req.body.edad,
-        req.body.ciudad,
         req.body.municipio,
         req.file.path
     );
@@ -93,8 +74,8 @@ app.post('/registro', [upload], async(req, res) => {
 
 
 app.get('/user/:id', verifyToken, (req, res) => {
-    let idusuarios = req.params.id
-    conn.query(queries.getUsuarioById, idusuarios, (err, result) => {
+    let idusuario = req.params.id
+    conn.query(queries.getUsuarioById, idusuario, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -111,12 +92,12 @@ app.get('/user/:id', verifyToken, (req, res) => {
 });
 
 app.put('/user/:id', [verifyToken, upload], (req, res) => {
-    let idusuarios = req.params.id
-    let data = _.pick(req.body, ['email', 'pass', 'nombre', 'apellido', 'ci', 'telefono', 'ciudad', 'municipio', 'image']);
+    let idusuario = req.params.id
+    let data = _.pick(req.body, ['email', 'pass', 'nombre', 'apellido', 'identificacion', 'telefono', 'municipio', 'image']);
     let image = req.file.path
     data.pass = bcrypt.hashSync(data.pass, 10);
     data.image = image
-    conn.query(queries.updateUsuarioById, [data, idusuarios], (err, result) => {
+    conn.query(queries.updateUsuarioById, [data, idusuario], (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -132,8 +113,8 @@ app.put('/user/:id', [verifyToken, upload], (req, res) => {
 });
 
 app.delete('/user/:id', [verifyToken, verifyAdmin], (req, res) => {
-    let idusuarios = req.params.id
-    conn.query(queries.deleteUsuario, idusuarios, (err, result) => {
+    let idusuario = req.params.id
+    conn.query(queries.deleteUsuario, idusuario, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,

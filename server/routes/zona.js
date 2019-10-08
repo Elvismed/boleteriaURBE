@@ -15,8 +15,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/zona/user/:id', (req, res) => {
-    let id_zona = req.params.id
-    conn.query(queries.zonaByIdUsuario, id_zona, (err, result) => {
+    let idzona = req.params.id
+    conn.query(queries.zonaByIdUsuario, idzona, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -49,10 +49,9 @@ app.get('/zonas', (req, res) => {
 
 app.post('/zona', (req, res) => {
     let data = new Zona(
-        req.body.id_zona,
         req.body.nombre,
         req.body.precio,
-        req.body.idlugar
+        req.body.fklugar
     );
     conn.query(queries.postZona, data, (err, result) => {
         if (err) {

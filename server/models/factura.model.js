@@ -2,16 +2,18 @@
 
 module.exports = class Factura {
     constructor(
-        numero_fact,
+        numero_factura,
         fecha,
         hora,
         subtotal,
-        total
+        total,
+        fkusuario
     ) {
-        this.numero_fact = numero_fact;
+        this.numero_factura = numero_factura;
         this.fecha = fecha;
         this.hora = hora;
         this.subtotal = subtotal;
         this.total = total;
+        this.fkusuario = fkusuario;
     }
 }

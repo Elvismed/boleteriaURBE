@@ -1,9 +1,12 @@
+'use strict';
+
 const express = require("express");
 const bodyparser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const _ = require('underscore');
 const logger = require('../utils/logger');
+const queries = require('../utils/SQL');
 
 const { allowCors } = require('../middlewares/web-security');
 
@@ -25,7 +28,7 @@ app.use(allowCors);
 app.post('/login', (req, res) => {
     var ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
     const body = req.body;
-    conn.query('SELECT * FROM usuarios WHERE email=?', body.email, (err, result) => {
+    conn.query(queries.postLogin, body.email, (err, result) => {
         if (err) {
             logger.info('Login failed')
             return res.status(500).json({
@@ -61,11 +64,10 @@ app.post('/login', (req, res) => {
                 'rol',
                 'nombre',
                 'apellido',
-                'ci',
+                'identificacion',
                 'sexo',
                 'telefono',
                 'edad',
-                'ciudad',
                 'municipio',
                 'estado',
                 'image'

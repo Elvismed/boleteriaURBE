@@ -46,11 +46,11 @@ app.get('/lugar/:id', (req, res) => {
 
     });
 });
+
 app.post('/lugar', [upload], async(req, res) => {
     let data = new Lugar(
-        req.body.idLugar,
         req.body.nombre,
-        req.file.path
+        req.file.path,
     );
     conn.query(queries.postLugar, await data, (err, result) => {
         if (err) {
@@ -66,9 +66,10 @@ app.post('/lugar', [upload], async(req, res) => {
         });
     });
 });
+
 app.put('/lugar/:id', [upload], async(req, res) => {
     let idLugar = req.params.id
-    let data = _.pick(req.body, ['nombre', 'image']);
+    let data = _.pick(req.body, ['nombre', 'image', 'activo']);
 
     conn.query(queries.updateLugarById, await [data, idLugar], (err, result) => {
         if (err) {
@@ -84,6 +85,7 @@ app.put('/lugar/:id', [upload], async(req, res) => {
         });
     });
 });
+
 app.delete('/lugar/:id', (req, res) => {
     let idLugar = req.params.id
     conn.query(queries.deleteLugar, idLugar, (err, result) => {

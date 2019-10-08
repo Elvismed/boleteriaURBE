@@ -2,16 +2,12 @@
 
 module.exports = class Butaca {
     constructor(
-        idbutacas,
         ubicacion,
-        cod_butaca,
-        area_idarea,
-        ticket_idticket
+        codigo_butaca,
+        fkarea
     ) {
-        this.idbutacas = idbutacas;
         this.ubicacion = ubicacion;
-        this.cod_butaca = cod_butaca;
-        this.area_idarea = area_idarea;
-        this.ticket_idticket = ticket_idticket;
+        this.codigo_butaca = codigo_butaca;
+        this.fkarea = fkarea;
     }
 };

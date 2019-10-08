@@ -1,10 +1,13 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 
 app.get("/", (req, res) => {
     res.json({
-        status: "Corriendo",
-        att: "By: Telmo"
+        status: 'Corriendo',
+        att: 'By: Telmo',
+        message: 'Hola Perras'
     })
 });
 

@@ -1,26 +1,30 @@
 'use strict';
 
 const queries = {
-    // Usuarios
-    getUsuarios: 'SELECT * FROM usuarios WHERE activo=1',
-    getUsuarioById: 'SELECT * FROM usuarios WHERE idusuarios= ?',
-    updateUsuarioById: 'UPDATE usuarios SET ? WHERE idusuarios = ?',
-    postUsuario: 'INSERT INTO usuarios SET ?',
-    deleteUsuario: 'UPDATE usuarios SET activo=0 WHERE idusuarios= ?',
+    //lOGIN
+    postLogin: 'SELECT * FROM usuario WHERE email=?',
+
+    //USUARIO
+    getUsuarios: 'SELECT * FROM usuario WHERE activo=1',
+    getUsuarioById: 'SELECT * FROM usuario WHERE iduser ?',
+    updateUsuarioById: 'UPDATE usuarios SET ? WHERE iduser = ?',
+    postUsuario: 'INSERT INTO usuario SET ?',
+    deleteUsuario: 'UPDATE usuario SET activo=0 WHERE iduser= ?',
 
     // AREA
-    postArea: 'INSERT INTO areas SET ?',
+    postArea: 'INSERT INTO area SET ?',
 
     // ESTADO
-    getEstado: 'SELECT * FROM estado WHERE APROBADO= ? AND RECHAZADO = ? AND PENDIENTE = ?',
-    postEstado: 'INSERT INTO estado SET ? WHERE id_estado= ?',
+    //getEstado: 'SELECT * FROM estado WHERE APROBADO= ? AND RECHAZADO = ? AND PENDIENTE = ?',
+    //modificar xd
+    postEstado: 'INSERT INTO estado SET ? WHERE idestado= ?',
 
 
     // LUGAR
-    getLugarById: 'SELECT * FROM lugar WHERE idLugar= ?',
+    getLugarById: 'SELECT * FROM lugar WHERE idlugar= ?',
     postLugar: 'INSERT INTO lugar SET ?',
-    updateLugarById: 'UPDATE lugar SET ? WHERE idLugar = ?',
-    deleteLugar: 'UPDATE lugar SET activo=0 WHERE idLugar= ?',
+    updateLugarById: 'UPDATE lugar SET ? WHERE idñugar = ?',
+    deleteLugar: 'UPDATE lugar SET activo=0 WHERE idlugar= ?',
 
     // ZONA
     getzona: 'SELECT * FROM zonas',

@@ -2,7 +2,7 @@ const tinify = require('tinify');
 'use strict';
 
 const fs = require('fs')
-tinify.key = "0gfR9K92n4DVRHFFHBQY2cSDH1JYJbnC"
+tinify.key = "0gfR9K92n4DVRHFFHBQY2cSDH1JYJbnC" //Colocar un key de urbe
 
 var path = 'server/public/uploads/'
 fs.readdir(path, function(err, items) {
@@ -14,7 +14,6 @@ fs.readdir(path, function(err, items) {
         source.toFile(pathc);
     }
 });
-
 
 //tinify.proxy = "" telmo puede colocar un proxy para la peticion
 

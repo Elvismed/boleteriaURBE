@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const conn = require('../config/db');
@@ -12,14 +14,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/estado/:estado', (req, res) => {
+// app.get('/estado/:estado', (req, res) => {
 
-});
+// });
 
 app.post('/estado/:id', (req, res) => {
     let data = new Estado(
-        req.body.id_estado,
         req.body.estado,
+        req.body.fkbutaca
     );
     conn.query(queries.postEstado, data, (err, result) => {
         if (err) {
@@ -37,10 +39,10 @@ app.post('/estado/:id', (req, res) => {
     });
 });
 app.put('/estado/:id', async(req, res) => {
-    let id_estado = req.params.id;
+    let idestado = req.params.id;
     let data = _.pick(req.body, ['estado']);
 
-    conn.query(queries, await [data, id_estado], (err, result) => {
+    conn.query(queries, await [data, idestado], (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,

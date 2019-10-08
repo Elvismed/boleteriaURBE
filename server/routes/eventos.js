@@ -25,8 +25,8 @@ app.get('/eventos', (req, res) => {
     });
 });
 app.get('/eventos/:id', (req, res) => {
-    let ideventos = req.params.id
-    conn.query(queries, ideventos, (err, result) => {
+    let idevento = req.params.id
+    conn.query(queries, idevento, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -43,11 +43,10 @@ app.post('/evento', [upload], async(req, res) => {
         body.nombre,
         body.fecha,
         body.hora,
-        body.descrip,
-        body.tipos_evento_idtipos_eventos,
-        body.usuarios_idusuarios,
-        body.idlugar,
-        req.file.path
+        body.descripcion,
+        req.file.path,
+        body.fkusuario,
+        body.fklugar
     );
     conn.query(queries.postEvento, await data, (err, result) => {
         if (err) {
@@ -64,13 +63,12 @@ app.post('/evento', [upload], async(req, res) => {
         });
 
     });
-
 });
+
 app.put("/eventos/:id", [upload], async(req, res) => {
-    let ideventos = req.params.id
-    let data = _.pick(req.body, ['nombre', 'fecha', 'hora', 'descrip', 'image']);
-
-    conn.query(queries.updateEventoById, await [data, ideventos], (err, result) => {
+    let idevento = req.params.id;
+    let data = _.pick(req.body, ['nombre', 'fecha', 'hora', 'descripcion', 'image']);
+    conn.query(queries.updateEventoById, await [data, idevento], (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -80,13 +78,14 @@ app.put("/eventos/:id", [upload], async(req, res) => {
         res.json({
             ok: true,
             result: result,
-            message: `Evento cambiado`
-        })
-    })
+            message: 'Evento cambiado'
+        });
+    });
 });
-app.delete("/eventos/:id", (req, res) => {
-    let ideventos = req.params.id
-    conn.query(queries.deleteEvento, ideventos, (err, result) => {
+
+app.delete('/eventos/:id', (req, res) => {
+    let idevento = req.params.id
+    conn.query(queries.deleteEvento, idevento, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -96,7 +95,7 @@ app.delete("/eventos/:id", (req, res) => {
         res.json({
             ok: true,
             result: result,
-            message: `El Evento fue eliminado`
+            message: 'El Evento fue eliminado'
         });
     });
 });
