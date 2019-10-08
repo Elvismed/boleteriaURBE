@@ -1,7 +1,7 @@
 'use strict';
 
 const { createLogger, format, transports } = require('winston');
-const { ip } = require('../routes/authentication')
+const { ip } = require('../routes/authentication');
 module.exports = createLogger({
     format: format.combine(
         format.simple(), format.timestamp(),

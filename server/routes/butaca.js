@@ -25,9 +25,8 @@ app.use(bodyParser.json());
 app.post('/butaca', (req, res) => {
     let data = new Butaca(
         req.body.ubicacion,
-        req.body.cod_butaca,
-        req.body.area_idarea
-
+        req.body.codigo_butaca,
+        req.body.fkarea
     );
     conn.query(queries.postButaca, data, (err, result) => {
         if (err) {
