@@ -1,6 +1,6 @@
 CREATE TABLE `usuario`(
     `iduser` INT NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT,
-    `email` INT(45) NOT NULL,
+    `email` VARCHAR(45) NOT NULL,
     `pass` VARCHAR(255) NOT NULL,
     `rol` TINYINT(1) NOT NULL,
     `nombre` VARCHAR(45) NOT NULL,
@@ -68,7 +68,9 @@ CREATE TABLE `butaca`(
     `ubicacion` VARCHAR(45) NOT NULL,
     `codigo_butaca` VARCHAR(20) NOT NULL,
     `fkarea` INT NOT NULL,
-    FOREIGN KEY (`fkarea`) REFERENCES `area`(`idarea`)
+    FOREIGN KEY (`fkarea`) REFERENCES `area`(`idarea`),
+    `fkactura` INT NOT NULL,
+    FOREIGN KEY (`fkusuario`) REFERENCES `usuario`(`iduser`)
 );
 
 CREATE TABLE `estado`(

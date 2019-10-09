@@ -43,7 +43,7 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
         });
     })
     // POST to add a new user to the database
-app.post('/registro', [upload], async(req, res) => {
+app.post('/user', [upload], async(req, res) => {
     let data = new User(
         req.body.email,
         bcrypt.hashSync(req.body.pass, 10),
@@ -55,7 +55,6 @@ app.post('/registro', [upload], async(req, res) => {
         req.body.telefono,
         req.body.edad,
         req.body.municipio,
-        req.body.activo,
         req.file.path
     );
     conn.query(queries.postUsuario, await data, (err, result) => {
@@ -68,7 +67,7 @@ app.post('/registro', [upload], async(req, res) => {
         res.json({
             ok: true,
             result,
-            message: 'Se ha agregado exitosamente'
+            message: 'exitosamente te han 👉👌'
         });
     });
 });
@@ -93,7 +92,7 @@ app.get('/user/:id', verifyToken, (req, res) => {
 });
 
 app.put('/user/:id', [verifyToken, upload], (req, res) => {
-    let idusuario = req.params.id
+    let idusuario = req.params.id;
     let data = _.pick(req.body, ['email', 'pass', 'nombre', 'apellido', 'identificacion', 'telefono', 'municipio', 'image']);
     let image = req.file.path
     data.pass = bcrypt.hashSync(data.pass, 10);

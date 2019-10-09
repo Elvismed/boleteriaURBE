@@ -1,6 +1,6 @@
-const tinify = require('tinify');
 'use strict';
 
+const tinify = require('tinify');
 const fs = require('fs')
 tinify.key = "0gfR9K92n4DVRHFFHBQY2cSDH1JYJbnC" //Colocar un key de urbe
 
