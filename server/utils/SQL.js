@@ -6,7 +6,7 @@ const queries = {
 
     //USUARIO
     getUsuarios: 'SELECT * FROM usuario WHERE activo=1',
-    getUsuarioById: 'SELECT * FROM usuario WHERE iduser ?',
+    getUsuarioById: 'SELECT * FROM usuario WHERE iduser = ?',
     updateUsuarioById: 'UPDATE usuarios SET ? WHERE iduser = ?',
     postUsuario: 'INSERT INTO usuario SET ?',
     deleteUsuario: 'UPDATE usuario SET activo=0 WHERE iduser= ?',

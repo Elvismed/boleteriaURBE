@@ -23,6 +23,8 @@
         "mysql": "^2.17.1",
         "passport": "^0.4.0",
         "passport-local": "^1.0.0",
+        "password-reset": "^0.1.4",
+        "python-shell": "^1.0.8",
         "timeago.js": "^4.0.0-beta.2",
         "tinify": "^1.6.0-beta.2",
         "underscore": "^1.9.1",
