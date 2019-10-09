@@ -27,8 +27,8 @@ const queries = {
     deleteLugar: 'UPDATE lugar SET activo=0 WHERE idlugar= ?',
 
     // ZONA
-    getzona: 'SELECT * FROM zonas',
-    postZona: 'INSERT INTO zonas SET ?',
+    getzona: 'SELECT * FROM zona',
+    postZona: 'INSERT INTO zona SET ?',
     zonaByIdUsuario: '',
 
     // FACTURAS

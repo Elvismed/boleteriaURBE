@@ -17,10 +17,8 @@ app.use(require('../routes/area'));
 app.use(require('../routes/zona'));
 app.use(require('../routes/lugar'));
 app.use(require('../routes/estado'));
-app.use(require('../routes/ticket'));
 app.use(require('../routes/factura'));
 app.use(require('../routes/butaca'));
-app.use(require('../routes/tipoevento'));
 app.use(require('../routes/eventos'));
 
 

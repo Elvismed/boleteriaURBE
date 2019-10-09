@@ -59,7 +59,7 @@ app.post('/login', (req, res) => {
 
         let userRes = _.pick(
             user[0], [
-                'idusuarios',
+                'iduser',
                 'email',
                 'rol',
                 'nombre',

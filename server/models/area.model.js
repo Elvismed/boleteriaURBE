@@ -4,10 +4,10 @@ module.exports = class Area {
     constructor(
         nombre,
         capacidad,
-        fkzonas
+        fkzona
     ) {
         this.nombre = nombre;
         this.capacidad = capacidad;
-        this.fkzonas = fkzonas;
+        this.fkzona = fkzona;
     }
 };

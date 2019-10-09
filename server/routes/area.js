@@ -6,6 +6,7 @@ const conn = require('../config/db');
 const _ = require('underscore');
 const Area = require('../models/area.model');
 const queries = require('../utils/SQL');
+const { verifyToken, verifyAdmin } = require('./../middlewares/auth');
 const app = express();
 
 const { allowCors } = require('../middlewares/web-security');
@@ -19,7 +20,7 @@ app.use(bodyParser.json())
 // Allow CORS
 app.use(allowCors);
 
-app.post('/area', (req, res) => {
+app.post('/area',[verifyToken, verifyAdmin], (req, res) => {
     let data = new Area(
         req.body.nombre,
         req.body.capacidad,

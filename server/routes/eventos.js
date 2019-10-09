@@ -1,4 +1,4 @@
-'use strict';
+    'use strict';
 
 const express = require("express");
 const conn = require("../config/db");
@@ -44,6 +44,7 @@ app.post('/evento', [verifyToken, verifyAdmin,upload], async(req, res) => {
         body.nombre,
         body.fecha,
         body.hora,
+        body.tipo_evento,
         body.descripcion,
         req.file.path,
         body.fkusuario,

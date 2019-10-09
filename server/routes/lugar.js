@@ -7,6 +7,7 @@ const _ = require('underscore');
 const Lugar = require('../models/lugar.model');
 const queries = require('../utils/SQL');
 const upload = require('../middlewares/upload-images');
+const { verifyToken, verifyAdmin } = require('./../middlewares/auth');
 
 const app = express();
 
@@ -47,10 +48,11 @@ app.get('/lugar/:id', (req, res) => {
     });
 });
 
-app.post('/lugar', [upload], async(req, res) => {
+app.post('/lugar', [verifyToken, verifyAdmin,upload], async(req, res) => {
     let data = new Lugar(
         req.body.nombre,
         req.file.path,
+       
     );
     conn.query(queries.postLugar, await data, (err, result) => {
         if (err) {
