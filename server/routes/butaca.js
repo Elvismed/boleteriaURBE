@@ -7,6 +7,7 @@ const conn = require('../config/db');
 const _ = require('underscore');
 const queries = require('../utils/SQL');
 const Butaca = require('../models/butaca.model');
+const { verifyToken, verifyAdmin } = require('./../middlewares/auth');
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use(bodyParser.json());
 
 
 
-app.post('/butaca', (req, res) => {
+app.post('/butaca',[ verifyToken, verifyAdmin], (req, res) => {
     let data = new Butaca(
         req.body.ubicacion,
         req.body.codigo_butaca,

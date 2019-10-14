@@ -14,18 +14,6 @@ CREATE TABLE `usuario`(
     `image` VARCHAR(500) NOT NULL DEFAULT 1
 );
 
-CREATE TABLE `factura`(
-    `idfactura` INT NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT,
-    `numero_factura` VARCHAR(45) NOT NULL,
-    `fecha` DATE NOT NULL,
-    `hora` TIMESTAMP,
-    `subtotal` DOUBLE NOT NULL,
-    `total` DOUBLE NOT NULL,
-    `fkusuario` INT NOT NULL,
-    FOREIGN KEY (`fkusuario`) REFERENCES `usuario`(`iduser`),
-    `fkbutaca` INT NOT NULL,
-    FOREIGN KEY (`fkbutaca`) REFERENCES `butaca`(`idbutaca`)
-);
 
 CREATE TABLE `lugar`(
     `idlugar` INT NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT,
@@ -68,14 +56,25 @@ CREATE TABLE `butaca`(
     `ubicacion` VARCHAR(45) NOT NULL,
     `codigo_butaca` VARCHAR(20) NOT NULL,
     `fkarea` INT NOT NULL,
-    FOREIGN KEY (`fkarea`) REFERENCES `area`(`idarea`),
-    `fkactura` INT NOT NULL,
-    FOREIGN KEY (`fkusuario`) REFERENCES `usuario`(`iduser`)
+    FOREIGN KEY (`fkarea`) REFERENCES `area`(`idarea`)
 );
 
 CREATE TABLE `estado`(
     `idestado` INT NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT,
     `estado` TINYINT(1) NOT NULL DEFAULT 1,
+    `fkbutaca` INT NOT NULL,
+    FOREIGN KEY (`fkbutaca`) REFERENCES `butaca`(`idbutaca`)
+);
+
+CREATE TABLE `factura`(
+    `idfactura` INT NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT,
+    `numero_factura` VARCHAR(45) NOT NULL,
+    `fecha` DATE NOT NULL,
+    `hora` TIMESTAMP,
+    `subtotal` DOUBLE NOT NULL,
+    `total` DOUBLE NOT NULL,
+    `fkusuario` INT NOT NULL,
+    FOREIGN KEY (`fkusuario`) REFERENCES `usuario`(`iduser`),
     `fkbutaca` INT NOT NULL,
     FOREIGN KEY (`fkbutaca`) REFERENCES `butaca`(`idbutaca`)
 );

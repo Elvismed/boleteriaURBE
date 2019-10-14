@@ -48,7 +48,7 @@ app.get('/lugar/:id', (req, res) => {
     });
 });
 
-app.post('/lugar', [verifyToken, verifyAdmin,upload], async(req, res) => {
+app.post('/lugar', [verifyToken,verifyAdmin,upload], async(req, res) => {
     let data = new Lugar(
         req.body.nombre,
         req.file.path,

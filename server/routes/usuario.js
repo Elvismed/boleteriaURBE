@@ -8,11 +8,14 @@ const _ = require('underscore');
 const User = require('../models/user.model');
 const queries = require('../utils/SQL');
 const upload = require('../middlewares/upload-images');
+const { allowCors } = require('../middlewares/web-security');
 
 const { verifyToken, verifyAdmin } = require('./../middlewares/auth');
 
 const app = express();
 
+// Allow CORS
+app.use(allowCors);
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -46,7 +49,7 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
 app.post('/user', [upload], async(req, res) => {
     let data = new User(
         req.body.email,
-        bcrypt.hashSync(req.body.pass, 10),
+        req.body.pass,
         req.body.rol,
         req.body.nombre,
         req.body.apellido,
