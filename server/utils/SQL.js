@@ -46,8 +46,8 @@ const queries = {
     postEvento: 'INSERT INTO evento SET ?',
     getEvento: 'SELECT * FROM evento',
     getEventoById: 'SELECT * FROM evento WHERE ideventos = ?',
-    updateEventoById: 'UPDATE evento SET ? WHERE ideventos = ?',
-    deleteEvento: 'UPDATE evento SET activo=0 WHERE ideventos= ?',
+    updateEventoById: 'UPDATE evento SET ? WHERE idevento = ?',
+    deleteEvento: 'UPDATE evento SET activo=0 WHERE idevento= ?', //agregar activo en tabla
 
     //TIPO EVENTOS
     postTipo: 'insert INTO tipos_evento SET ?'
