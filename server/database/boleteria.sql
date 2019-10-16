@@ -74,7 +74,9 @@ CREATE TABLE `factura`(
     `subtotal` DOUBLE NOT NULL,
     `total` DOUBLE NOT NULL,
     `fkusuario` INT NOT NULL,
-    FOREIGN KEY (`fkusuario`) REFERENCES `usuario`(`iduser`),
     `fkbutaca` INT NOT NULL,
-    FOREIGN KEY (`fkbutaca`) REFERENCES `butaca`(`idbutaca`)
+    `fkevento` INT NOT NULL,
+    FOREIGN KEY (`fkusuario`) REFERENCES `usuario`(`iduser`),
+    FOREIGN KEY (`fkbutaca`) REFERENCES `butaca`(`idbutaca`),
+    FOREIGN KEY (`fkevento`) REFERENCES `evento`(`idevento`)
 );

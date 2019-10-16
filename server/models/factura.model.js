@@ -8,7 +8,8 @@ module.exports = class Factura {
         subtotal,
         total,
         fkusuario,
-        fkbutaca
+        fkbutaca,
+        fkevento
     ) {
         this.numero_factura = numero_factura;
         this.fecha = fecha;
@@ -17,5 +18,6 @@ module.exports = class Factura {
         this.total = total;
         this.fkusuario = fkusuario;
         this.fkbutaca = fkbutaca;
+        this.fkevento = fkevento;
     }
 }

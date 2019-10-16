@@ -49,7 +49,7 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
 app.post('/user', [upload], async(req, res) => {
     let data = new User(
         req.body.email,
-        req.body.pass,
+        bcrypt.hashSync(req.body.pass,10),
         req.body.rol,
         req.body.nombre,
         req.body.apellido,

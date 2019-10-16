@@ -16,8 +16,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json());
-
-
 // query de butaca por estado
 // query de butaca por por persona
 
