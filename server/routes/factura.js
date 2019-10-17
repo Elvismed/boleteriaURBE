@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
-app.get('/factura', [verifyToken, verifyAdmin], (req, res) => {
+app.get('/facturas', [verifyToken, verifyAdmin], (req, res) => {
     conn.query(queries.getFacturas, (err, result) => {
         if (err) {
             res.status(400).json({
@@ -29,8 +29,9 @@ app.get('/factura', [verifyToken, verifyAdmin], (req, res) => {
     });
 });
 
-app.get('/factura/:numero_factura', (req, res) => {
-    conn.query(queries.getFacturasByCod, (err, result) => {
+app.get('/factura/:numero_factura',verifyToken, (req, res) => {
+   let data = req.params.numero_factura
+    conn.query(queries.getFacturaConfirmacion,data,(err, result)=>{
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -41,13 +42,15 @@ app.get('/factura/:numero_factura', (req, res) => {
             ok: true,
             result
         })
-    });
+    })
 });
 
 
 app.post('/factura', verifyToken, (req, res) => {
     let datos = req.body;
     console.log(datos)
+    let dato = datos[0].numero_factura
+
     datos.forEach(element => {
         let data = _.pick(element, ['numero_factura', 'fecha', 'hora', 'subtotal', 'total', 'fkusuario', 'fkbutaca', 'fkevento'])
         conn.query(queries.postFactura, data, (err, result) => {
@@ -59,11 +62,13 @@ app.post('/factura', verifyToken, (req, res) => {
             }
         });
     });
+    console.log(dato)
     res.json({
-        ok: true,
-        message: "Factura Creada"
-    });
+        ok: true
+    })
+    
 
 });
+
 
 module.exports = app;

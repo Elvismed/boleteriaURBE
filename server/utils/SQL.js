@@ -32,9 +32,10 @@ const queries = {
     zonaByIdUsuario: '',
 
     // FACTURAS
-    getFacturas: 'SELECT * FROM factura',
-    getFacturasByCod: 'SELECT * FROM factura WHERE numero_fact= ?',
+    getFacturas: 'SELECT * FROM factura GROUP BY numero_factura',
+    getFacturasByCod: 'SELECT * FROM factura WHERE numero_factura= ?',
     postFactura: 'INSERT INTO factura SET ?',
+    getFacturaConfirmacion: 'SELECT * FROM factura INNER JOIN butaca ON factura.fkbutaca = butaca.idbutaca WHERE numero_factura= ?',
 
     // BUTACAS
     postButaca: 'INSERT INTO butaca SET ?',
