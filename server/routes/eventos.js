@@ -48,7 +48,7 @@ app.post('/evento', [verifyToken, verifyAdmin,upload], async(req, res) => {
         body.descripcion,
         req.file.path,
         body.fkusuario,
-        body.fklugar,
+        body.fklugar,   
         body.activo = 1
     );
     conn.query(queries.postEvento, await data, (err, result) => {
