@@ -16,7 +16,7 @@ const queries = {
 
     // ESTADO
     //getEstado: 'SELECT * FROM estado WHERE APROBADO= ? AND RECHAZADO = ? AND PENDIENTE = ?',
-    //modificar xd
+    //
     postEstado: 'INSERT INTO estado SET ? WHERE idestado= ?',
 
 
@@ -46,7 +46,7 @@ const queries = {
     //EVENTOS
     postEvento: 'INSERT INTO evento SET ?',
     getEvento: 'SELECT * FROM evento',
-    getEventoById: 'SELECT * FROM evento WHERE ideventos = ?',
+    getEventoById: 'SELECT * FROM evento WHERE idevento = ?',
     updateEventoById: 'UPDATE evento SET ? WHERE idevento = ?',
     deleteEvento: 'UPDATE evento SET activo=0 WHERE idevento= ?', //agregar activo en tabla
 

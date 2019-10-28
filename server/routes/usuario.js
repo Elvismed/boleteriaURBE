@@ -70,7 +70,7 @@ app.post('/user', [upload], async(req, res) => {
         res.json({
             ok: true,
             result,
-            message: 'exitosamente te han 👉👌'
+            message: 'exitosamente te han 👉👌' 
         });
     });
 });

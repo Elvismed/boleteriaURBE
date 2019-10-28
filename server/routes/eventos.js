@@ -27,7 +27,7 @@ app.get('/eventos', (req, res) => {
 });
 app.get('/eventos/:id', (req, res) => {
     let idevento = req.params.id
-    conn.query(queries, idevento, (err, result) => {
+    conn.query(queries.getEventoById, idevento, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
