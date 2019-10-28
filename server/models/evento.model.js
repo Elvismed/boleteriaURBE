@@ -9,7 +9,8 @@ module.exports = class Evento {
         descripcion,
         image,
         fkusuario,
-        fklugar
+        fklugar,
+        activo
     ) {
         this.nombre = nombre;
         this.fecha = fecha;
@@ -19,5 +20,6 @@ module.exports = class Evento {
         this.image = image;
         this.fkusuario = fkusuario;
         this.fklugar = fklugar;
+        this.activo = activo;
     }
 }
