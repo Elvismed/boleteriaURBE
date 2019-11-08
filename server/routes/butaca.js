@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 
 
 
-app.post('/butaca',[ verifyToken, verifyAdmin], (req, res) => {
+app.post('/butaca',[verifyToken, verifyAdmin], (req, res) => {
     let data = new Butaca(
         req.body.ubicacion,
         req.body.codigo_butaca,

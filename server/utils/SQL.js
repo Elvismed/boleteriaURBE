@@ -13,6 +13,9 @@ const queries = {
 
     // AREA
     postArea: 'INSERT INTO area SET ?',
+    getArea : 'SELECT * FROM area INNER JOIN zona  on zona.idzona = area.fkzona WHERE idzona = ? ',
+    deleteArea : 'DELETE FROM area WHERE idarea = ?',
+    
 
     // ESTADO
     //getEstado: 'SELECT * FROM estado WHERE APROBADO= ? AND RECHAZADO = ? AND PENDIENTE = ?',
@@ -30,6 +33,7 @@ const queries = {
     getzona: 'SELECT * FROM zona',
     postZona: 'INSERT INTO zona SET ?',
     zonaByIdUsuario: '',
+    deleteZona : 'DELETE FROM zona WHERE idzona = ?',
 
     // FACTURAS
     getFacturas: 'SELECT * FROM factura GROUP BY numero_factura',
@@ -46,6 +50,8 @@ const queries = {
     //EVENTOS
     postEvento: 'INSERT INTO evento SET ?',
     getEvento: 'SELECT * FROM evento',
+    getEventoById2:'SELECT * FROM evento WHERE idevento = ?',
+    getEventoByIdinner: 'SELECT * FROM evento INNER JOIN zona on evento.fklugar = zona.fklugar WHERE evento.idevento = ? AND zona.fkevento = ?',
     getEventoById: 'SELECT * FROM evento WHERE idevento = ?',
     updateEventoById: 'UPDATE evento SET ? WHERE idevento = ?',
     deleteEvento: 'UPDATE evento SET activo=0 WHERE idevento= ?', //agregar activo en tabla

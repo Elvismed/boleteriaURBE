@@ -51,8 +51,6 @@ app.get('/lugar/:id', (req, res) => {
 app.post('/lugar', [verifyToken,verifyAdmin,upload], async(req, res) => {
     let data = new Lugar(
         req.body.nombre,
-        req.file.path,
-       
     );
     conn.query(queries.postLugar, await data, (err, result) => {
         if (err) {
@@ -69,11 +67,11 @@ app.post('/lugar', [verifyToken,verifyAdmin,upload], async(req, res) => {
     });
 });
 
-app.put('/lugar/:id', [upload], async(req, res) => {
+app.put('/lugar/:id', [verifyToken,verifyAdmin], (req, res) => {
     let idLugar = req.params.id
-    let data = _.pick(req.body, ['nombre', 'image', 'activo']);
+    let data = _.pick(req.body, ['nombre', , 'activo']);
 
-    conn.query(queries.updateLugarById, await [data, idLugar], (err, result) => {
+    conn.query(queries.updateLugarById, [data, idLugar], (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -88,7 +86,7 @@ app.put('/lugar/:id', [upload], async(req, res) => {
     });
 });
 
-app.delete('/lugar/:id', (req, res) => {
+app.delete('/lugar/:id', [verifyToken,verifyAdmin],(req, res) => {
     let idLugar = req.params.id
     conn.query(queries.deleteLugar, idLugar, (err, result) => {
         if (err) {

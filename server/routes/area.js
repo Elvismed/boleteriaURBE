@@ -20,11 +20,25 @@ app.use(bodyParser.json())
 // Allow CORS
 app.use(allowCors);
 
+app.get('/area/:id',[verifyToken,verifyAdmin], (req, res) => {
+    let idzona = req.params.id
+    conn.query(queries.getArea, idzona, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+        res.json(result);
+    });
+});
+
 app.post('/area',[verifyToken, verifyAdmin], (req, res) => {
     let data = new Area(
         req.body.nombre,
         req.body.capacidad,
-        req.body.fkzona
+        req.body.fkzona,
+        req.body.fkevento
     );
     conn.query(queries.postArea, data, (err, result) => {
         if (err) {
@@ -41,4 +55,22 @@ app.post('/area',[verifyToken, verifyAdmin], (req, res) => {
         });
     });
 });
+
+app.delete('/areaEL/:id',[verifyToken,verifyAdmin],(req,res)=>{
+    let idzona = req.params.id
+    conn.query(queries.deleteArea,idzona, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+        res.json({
+            ok: true,
+            result: result,
+            message: 'Area eliminada'
+        });
+})
+})
+
 module.exports = app;

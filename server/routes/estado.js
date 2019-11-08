@@ -6,6 +6,7 @@ const conn = require('../config/db');
 const _ = require('underscore');
 const Estado = require('../models/estado.model');
 const queries = require('../utils/SQL');
+const { verifyToken, verifyAdmin } = require('./../middlewares/auth');
 const app = express();
 
 // parse application/x-www-form-urlencoded
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 
 // });
 
-app.post('/estado/:id', (req, res) => {
+app.post('/estado/:id',[verifyToken,verifyAdmin], (req, res) => {
     let data = new Estado(
         req.body.estado,
         req.body.fkbutaca
@@ -38,7 +39,7 @@ app.post('/estado/:id', (req, res) => {
         });
     });
 });
-app.put('/estado/:id', async(req, res) => {
+app.put('/estado/:id',[verifyToken, verifyAdmin], async(req, res) => {
     let idestado = req.params.id;
     let data = _.pick(req.body, ['estado']);
 

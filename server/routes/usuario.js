@@ -46,10 +46,10 @@ app.get('/user', [verifyToken, verifyAdmin], (req, res) => {
         });
     })
     // POST to add a new user to the database
-app.post('/user', [upload], async(req, res) => {
+app.post('/user',(req, res) => {
     let data = new User(
         req.body.email,
-        bcrypt.hashSync(req.body.pass,10),
+        bcrypt.hashSync(req.body.pass,10),  
         req.body.rol,
         req.body.nombre,
         req.body.apellido,
@@ -58,9 +58,9 @@ app.post('/user', [upload], async(req, res) => {
         req.body.telefono,
         req.body.edad,
         req.body.municipio,
-        req.file.path
+        req.body.activo
     );
-    conn.query(queries.postUsuario, await data, (err, result) => {
+    conn.query(queries.postUsuario, data, (err, result) => {
         if (err) {
             res.status(400).json({
                 ok: false,
@@ -94,10 +94,9 @@ app.get('/user/:id', verifyToken, (req, res) => {
     });
 });
 
-app.put('/user/:id', [verifyToken, upload], (req, res) => {
+app.put('/user/:id', [verifyToken], (req, res) => {
     let idusuario = req.params.id;
-    let data = _.pick(req.body, ['email', 'pass', 'nombre', 'apellido', 'identificacion', 'telefono', 'municipio', 'image']);
-    let image = req.file.path
+    let data = _.pick(req.body, ['email', 'pass', 'nombre', 'apellido', 'identificacion', 'telefono', 'municipio']);
     data.pass = bcrypt.hashSync(data.pass, 10);
     data.image = image
     conn.query(queries.updateUsuarioById, [data, idusuario], (err, result) => {

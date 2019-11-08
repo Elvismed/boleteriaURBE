@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/zona/user/:id', (req, res) => {
+app.get('/zona/user/:id',[verifyToken], (req, res) => {
     let idzona = req.params.id
     conn.query(queries.zonaByIdUsuario, idzona, (err, result) => {
         if (err) {
@@ -31,7 +31,7 @@ app.get('/zona/user/:id', (req, res) => {
     });
 });
 
-app.get('/zonas', (req, res) => {
+app.get('/zonas', [verifyToken], (req, res) => {
     conn.query(queries.getzona, (err, result) => {
         if (err) {
             res.status(400).json({
@@ -46,12 +46,12 @@ app.get('/zonas', (req, res) => {
         });
     });
 });
-
 app.post('/zona', [verifyToken, verifyAdmin], (req, res) => {
     let data = new Zona(
         req.body.nombre,
         req.body.precio,
-        req.body.fklugar
+        req.body.fklugar,
+        req.body.fkevento
     );
     conn.query(queries.postZona, data, (err, result) => {
         if (err) {
@@ -68,5 +68,21 @@ app.post('/zona', [verifyToken, verifyAdmin], (req, res) => {
         });
     });
 });
-
+app.delete('/zonaEL/:id',[verifyToken,verifyAdmin],(req,res)=>{
+    let idzona = req.params.id
+    conn.query(queries.deleteZona,idzona, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+        res.json({
+            ok: true,
+            result: result,
+            message: 'Zona eliminada'
+        });
+    
+})
+})
 module.exports = app;
